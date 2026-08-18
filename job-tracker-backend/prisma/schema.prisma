@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id              String           @id @default(uuid())
+  name            String
+  email           String           @unique
+  passwordHash    String
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  jobApplications JobApplication[]
+
+  @@map("users")
+}
+
+model JobApplication {
+  id     String @id @default(uuid())
+  userId String
+
+  companyName String
+  jobTitle    String
+  salaryRange String
+  location    String
+
+  status  String?
+  dueDate String?
+  stage   String?
+  mode    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user            User              @relation(fields: [userId], references: [id])
+  keywordAnalyses KeywordAnalysis[]
+
+  @@index([userId])
+  @@map("job_applications")
+}
+
+model KeywordAnalysis {
+  id            String @id @default(uuid())
+  applicationId String @unique
+
+  keywords        Json
+  tailoredBullets Json
+  advisoryNote    String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  application JobApplication @relation(fields: [applicationId], references: [id])
+
+  @@index([applicationId])
+  @@map("keyword_analysis")
+}
