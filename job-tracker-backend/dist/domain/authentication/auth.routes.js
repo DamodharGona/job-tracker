@@ -3,14 +3,15 @@ import { AuthService } from "./auth.service.js";
 import { validateRequest } from "../../middleware/validation.middleware.js";
 import { loginUserRequest, loginUserSchema, registerUserRequest, registerUserSchema, } from "./auth.schema.js";
 const router = express.Router();
+const isProduction = process.env.NODE_ENV === "production";
 const { registerUserService, loginUserService } = AuthService();
 const registerUser = async (req, res) => {
     const result = await registerUserService(req.body);
     res.cookie("token", result.token, {
         httpOnly: true,
-        secure: false, // process.env.NODE_ENV === "prod",
+        secure: isProduction,
         path: "/",
-        sameSite: "lax", // "none"
+        sameSite: isProduction ? "none" : "lax",
         maxAge: 24 * 60 * 60 * 1000,
     });
     res.status(201).send({
@@ -22,9 +23,9 @@ const loginUser = async (req, res) => {
     const result = await loginUserService(req.body);
     res.cookie("token", result.token, {
         httpOnly: true,
-        secure: false, // process.env.NODE_ENV === "prod",
+        secure: isProduction,
         path: "/",
-        sameSite: "lax", // "none"
+        sameSite: isProduction ? "none" : "lax",
         maxAge: 24 * 60 * 60 * 1000,
     });
     res.status(200).json({
@@ -35,8 +36,8 @@ const loginUser = async (req, res) => {
 const logoutUser = async (req, res) => {
     res.clearCookie("token", {
         httpOnly: true,
-        secure: false,
-        sameSite: "lax",
+        secure: isProduction,
+        sameSite: isProduction ? "none" : "lax",
         path: "/",
     });
     res.status(200).json({

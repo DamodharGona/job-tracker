@@ -171,8 +171,9 @@ export function ApplicationService() {
                                 properties: {
                                     keyword: { type: Type.STRING },
                                     importance_rank: { type: Type.INTEGER },
+                                    match_status: { type: Type.STRING },
                                 },
-                                required: ["keyword", "importance_rank"],
+                                required: ["keyword", "importance_rank", "match_status"],
                             },
                         },
                         tailored_bullets: {
@@ -195,8 +196,20 @@ export function ApplicationService() {
                 },
             },
         });
-        console.log("gemini response:", response);
-        return response.text;
+        console.log("gemini response:", response.text);
+        const parsedResponse = JSON.parse(response.text);
+        console.log("parsed response", parsedResponse);
+        const matchedCount = parsedResponse.keywords.filter((k) => k.match_status === "Present" || k.match_status === "Partial").length;
+        const totalCount = parsedResponse.keywords.length;
+        const matchScore = Math.round((matchedCount / totalCount) * 100);
+        const matchBreakdown = `${matchedCount} of ${totalCount} key requirements matched or partially matched`;
+        return {
+            matchScore: matchScore,
+            matchBreakdown: matchBreakdown,
+            keywords: parsedResponse.keywords,
+            tailored_bullets: parsedResponse.tailored_bullets,
+            advisory_note: parsedResponse.advisory_note,
+        };
     };
     // const callGeminiService = async (userId: string, prompt: string) => {
     //   const user = await getUserById(userId);

@@ -12,10 +12,9 @@ export const app = express();
 app.use(cookieParser());
 
 const allowedOrigins = [
-  "https://yourfrontend.com",
-  "http://localhost:4000",
   "http://localhost:5173",
-];
+  process.env.FRONTEND_URL,
+].filter(Boolean) as string[];
 
 app.use(
   cors({

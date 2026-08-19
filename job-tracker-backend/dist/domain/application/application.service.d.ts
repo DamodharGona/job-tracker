@@ -113,6 +113,12 @@ export declare function ApplicationService(): {
         test?: never;
         interview?: never;
     })[]>;
-    callGeminiService: (userId: string, prompt: string, resume: string, jobDescription: string) => Promise<string | undefined>;
+    callGeminiService: (userId: string, prompt: string, resume: string, jobDescription: string) => Promise<{
+        matchScore: number;
+        matchBreakdown: string;
+        keywords: any;
+        tailored_bullets: any;
+        advisory_note: any;
+    }>;
 };
 //# sourceMappingURL=application.service.d.ts.map
