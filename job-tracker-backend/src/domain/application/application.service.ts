@@ -277,7 +277,8 @@ export function ApplicationService() {
     console.log("parsed response", parsedResponse);
 
     const matchedCount = parsedResponse.keywords.filter(
-      (k) => k.match_status === "Present" || k.match_status === "Partial",
+      (k: { match_status: string }) =>
+        k.match_status === "Present" || k.match_status === "Partial",
     ).length;
 
     const totalCount = parsedResponse.keywords.length;
