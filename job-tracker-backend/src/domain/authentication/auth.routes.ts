@@ -14,6 +14,8 @@ import {
 
 const router: Router = express.Router();
 
+const isProduction = process.env.NODE_ENV === "production";
+
 const { registerUserService, loginUserService } = AuthService();
 
 const registerUser = async (
@@ -23,9 +25,9 @@ const registerUser = async (
   const result = await registerUserService(req.body);
   res.cookie("token", result.token, {
     httpOnly: true,
-    secure: false, // process.env.NODE_ENV === "prod",
+    secure: isProduction,
     path: "/",
-    sameSite: "lax", // "none"
+    sameSite: isProduction ? "none" : "lax",
     maxAge: 24 * 60 * 60 * 1000,
   });
   res.status(201).send({
@@ -41,9 +43,9 @@ const loginUser = async (
   const result = await loginUserService(req.body);
   res.cookie("token", result.token, {
     httpOnly: true,
-    secure: false, // process.env.NODE_ENV === "prod",
+    secure: isProduction,
     path: "/",
-    sameSite: "lax", // "none"
+    sameSite: isProduction ? "none" : "lax",
     maxAge: 24 * 60 * 60 * 1000,
   });
 
@@ -56,8 +58,8 @@ const loginUser = async (
 const logoutUser = async (req: Request, res: Response): Promise<void> => {
   res.clearCookie("token", {
     httpOnly: true,
-    secure: false,
-    sameSite: "lax",
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
     path: "/",
   });
 
