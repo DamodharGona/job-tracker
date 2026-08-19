@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch src/main.ts",
-    "build": "rimraf dist && tsc",
+    "build": "rimraf dist && prisma generate && tsc",
     "start": "node dist/main.js",
     "db:up": "docker compose up -d",
     "db:down": "docker compose down",
