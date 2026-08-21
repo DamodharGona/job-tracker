@@ -11,8 +11,15 @@ import JobApplication from "./pages/jobApplicationPage";
 import { ResumeMatchPage } from "./pages/resumeMatchPage";
 
 function App() {
-  const [user, setUser] = useState({});
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem("user");
+
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
+
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return !!localStorage.getItem("user");
+  });
 
   return (
     <AuthContext.Provider

@@ -33,6 +33,7 @@ function LoginPage() {
 
       setUser(response.user);
       setIsAuthenticated(true);
+      localStorage.setItem("user", JSON.stringify(response.user));
 
       toast.success("Login successful");
       navigate("/");

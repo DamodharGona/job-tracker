@@ -1,5 +1,6 @@
+import { AuthContext } from "@/components/app/authContext";
 import { registerUser } from "@/repository/authApis";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight } from "react-icons/fi";
 import { MdPerson } from "react-icons/md";
@@ -9,6 +10,7 @@ import { toast } from "react-toastify";
 
 function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const { setUser, setIsAuthenticated } = useContext(AuthContext);
 
   const {
     register,
@@ -17,8 +19,6 @@ function SignUpPage() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log("Form submitted:", data);
-
     try {
       const response = await registerUser({
         name: data.name,
@@ -26,6 +26,10 @@ function SignUpPage() {
         password: data.password,
       });
       console.log("Registration successful:", response);
+      localStorage.setItem("user", JSON.stringify(response.user));
+
+      setUser(response.user);
+      setIsAuthenticated(true);
       navigate("/");
     } catch (error) {
       console.error("Registration failed:", error);
