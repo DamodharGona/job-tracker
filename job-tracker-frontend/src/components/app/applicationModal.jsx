@@ -21,6 +21,7 @@ function ApplicationModal({
   rowData,
   isEdit,
   onEditConfirm,
+  isPending,
 }) {
   const {
     register,
@@ -320,17 +321,28 @@ function ApplicationModal({
           <div className="flex mt-2 gap-x-4">
             <button
               type="button"
-              className="w-full flex justify-center py-2.5 px-4 border border-neutral-300 dark:border-zinc-700 text-sm font-semibold rounded-md text-neutral-700 dark:text-zinc-300 hover:bg-neutral-100 dark:hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:border-neutral-900 transition-colors cursor-pointer"
+              disabled={isPending}
+              className={`w-full flex justify-center py-2.5 px-4 border border-neutral-300 dark:border-zinc-700 text-sm font-semibold rounded-md text-neutral-700 dark:text-zinc-300 hover:bg-neutral-100 dark:hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:border-neutral-900 transition-colors ${isPending ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
               onClick={handleOnCancelForm}
             >
               cancel
             </button>
             <button
               type="submit"
-              className="w-full flex justify-center py-2.5 px-4 border border-transparent text-sm font-semibold rounded-md text-white dark:text-zinc-900 bg-neutral-900 hover:bg-neutral-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-900 transition-colors cursor-pointer dark:focus:ring-zinc-100
-    dark:focus:ring-offset-zinc-950"
+              disabled={isPending}
+              className={`w-full flex justify-center items-center py-2.5 px-4 border border-transparent text-sm font-semibold rounded-md text-white dark:text-zinc-900 bg-neutral-900 hover:bg-neutral-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-900 transition-colors dark:focus:ring-zinc-100 dark:focus:ring-offset-zinc-950 ${isPending ? "opacity-75 cursor-not-allowed" : "cursor-pointer"}`}
             >
-              confirm
+              {isPending ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-current" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  </svg>
+                  Saving...
+                </>
+              ) : (
+                "confirm"
+              )}
             </button>
           </div>
         </div>

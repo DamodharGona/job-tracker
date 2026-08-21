@@ -3,6 +3,13 @@ import { MdOutlineClose } from "react-icons/md";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { LuMoonStar } from "react-icons/lu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { useContext } from "react";
+import { AuthContext } from "./authContext";
 
 function SideBarModal({
   isSideBarOpen,
@@ -11,6 +18,7 @@ function SideBarModal({
   theme,
   setTheme,
 }) {
+  const { user } = useContext(AuthContext);
   if (!isSideBarOpen) return null;
 
   const handleClose = () => {
@@ -56,29 +64,40 @@ function SideBarModal({
               resume-match
             </span>
           </Link>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <section className="flex gap-x-2 items-center text-sm uppercase tracking-wider cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 rounded-md hover:font-semibold pl-2 py-1.5  transition-colors">
+                <span className="border rounded-full px-1 bg-blue-300 text-black">
+                  {user?.name?.charAt(0)}
+                </span>
+                <span>{user?.name}</span>
+              </section>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-full">
+              <div className="border border-transparent rounded-md bg-black/10 dark:bg-white/10 flex p-0.5 transition-colors">
+                <span
+                  onClick={() => setTheme("light")}
+                  className={`hover:cursor-pointer w-full flex gap-x-2 py-1 rounded-md items-center justify-center px-2 transition-colors ${theme === "light" ? "bg-white text-neutral-900 shadow-sm" : "text-neutral-500 hover:text-neutral-900 dark:text-zinc-400 dark:hover:text-zinc-200"}`}
+                >
+                  <FiSun />
+                </span>
+                <span
+                  onClick={() => setTheme("dark")}
+                  className={`hover:cursor-pointer w-full flex gap-x-2 py-1 rounded-md items-center justify-center px-2 transition-colors ${theme === "dark" ? "bg-zinc-800 text-white shadow-sm" : "text-neutral-500 hover:text-neutral-900 dark:text-zinc-400 dark:hover:text-zinc-200"}`}
+                >
+                  <LuMoonStar />
+                </span>
+              </div>
 
-          <div className="border border-transparent rounded-md bg-black/10 dark:bg-white/10 flex p-0.5 transition-colors">
-            <span
-              onClick={() => setTheme("light")}
-              className={`hover:cursor-pointer w-full flex gap-x-2 py-1 rounded-md items-center justify-center px-2 transition-colors ${theme === "light" ? "bg-white text-neutral-900 shadow-sm" : "text-neutral-500 hover:text-neutral-900 dark:text-zinc-400 dark:hover:text-zinc-200"}`}
-            >
-              <FiSun />
-            </span>
-            <span
-              onClick={() => setTheme("dark")}
-              className={`hover:cursor-pointer w-full flex gap-x-2 py-1 rounded-md items-center justify-center px-2 transition-colors ${theme === "dark" ? "bg-zinc-800 text-white shadow-sm" : "text-neutral-500 hover:text-neutral-900 dark:text-zinc-400 dark:hover:text-zinc-200"}`}
-            >
-              <LuMoonStar />
-            </span>
-          </div>
-
-          <span
-            onClick={onLogoutClicked}
-            className="flex gap-x-2 items-center text-sm uppercase tracking-wider cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 rounded-md hover:font-semibold px-2 py-1 md:px-3 md:py-1.5 transition-colors"
-          >
-            <FiLogOut />
-            Logout
-          </span>
+              <span
+                onClick={onLogoutClicked}
+                className="flex gap-x-2 items-center text-sm uppercase tracking-wider cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 rounded-md hover:font-semibold px-2 py-1 md:px-3 md:py-1.5 transition-colors"
+              >
+                <FiLogOut />
+                Logout
+              </span>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </div>
