@@ -89,5 +89,11 @@ export const updateGeminiApiKeySchema = z.object({
   request: updateGeminiApiKeyRequest,
   response: z.object({
     message: z.string(),
+    user: z.object({
+      id: z.string(),
+      name: z.string(),
+      email: z.string(),
+      hasGeminiApiKey: z.boolean(),
+    }).optional(),
   }),
 });

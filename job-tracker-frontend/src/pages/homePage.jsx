@@ -16,7 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import SideBarModal from "../components/app/sideBarModal";
 import logo from "../assets/logo.png";
 import { LuMoonStar } from "react-icons/lu";
-import { AuthContext } from "@/components/app/authContext";
+import { ApiKeyContext, AuthContext } from "@/components/app/authContext";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import SettingsModal from "@/components/app/settingsModdal";
 import LogoutConfirmationModal from "@/components/app/logoutConfirmationModal";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
 function HomePage() {
@@ -37,7 +37,7 @@ function HomePage() {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const queryClient = useQueryClient();
+  const { setHasApiKey } = useContext(ApiKeyContext);
 
   useEffect(() => {
     if (theme === "dark") {
@@ -72,24 +72,19 @@ function HomePage() {
 
   const createMutation = useMutation({
     mutationFn: saveGeminiApiKey,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["queryResult"],
-      });
-
+    onSuccess: (data) => {
+      const keyStatus = data?.user?.hasGeminiApiKey ?? true;
+      localStorage.setItem("hasApiKey", JSON.stringify(keyStatus));
+      setHasApiKey(keyStatus);
       toast.success("saved successfully");
       setIsSettingModalOpen(false);
     },
     onError: (error) => {
-      console.log("Error while saving API key:", error);
-      toast.error(
-        error.response?.data?.message || "Failed to save API key",
-      );
+      toast.error(error.response?.data?.message || "Failed to save API key");
     },
   });
 
   const handleOnSave = (apiKey) => {
-    console.log("saving api key....");
     createMutation.mutate({
       geminiApiKey: apiKey,
     });

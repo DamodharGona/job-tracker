@@ -24,6 +24,7 @@ export function AuthService() {
                 id: newUser.id,
                 name: newUser.name,
                 email: newUser.email,
+                hasGeminiApiKey: false,
             },
         };
     };
@@ -40,6 +41,7 @@ export function AuthService() {
             throw AppErrors.invalidCredentials("Invalid credentials. Please enter correct email/password");
         }
         const token = generateToken({ userId: user.id, email: user.email });
+        const hasGeminiApiKey = user.geminiApiKey !== null;
         return {
             message: "logged in successfully",
             token: token,
@@ -47,6 +49,7 @@ export function AuthService() {
                 id: user.id,
                 name: user.name,
                 email: user.email,
+                hasGeminiApiKey: hasGeminiApiKey,
             },
         };
     };
@@ -56,9 +59,15 @@ export function AuthService() {
             throw AppErrors.notFound("user does not exist", "USER_NOT_FOUND");
         }
         const encryptedKey = encrypt(geminiApiKey);
-        await updateUserGeminiApiKey(userId, encryptedKey);
+        const updatedUserDetails = await updateUserGeminiApiKey(userId, encryptedKey);
         return {
             message: "Gemini API Key updated successfully",
+            user: {
+                id: updatedUserDetails.id,
+                name: updatedUserDetails.name,
+                email: updatedUserDetails.email,
+                hasGeminiApiKey: updatedUserDetails.geminiApiKey !== null,
+            },
         };
     };
     return {

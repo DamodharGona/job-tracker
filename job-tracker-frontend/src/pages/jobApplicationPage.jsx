@@ -112,7 +112,6 @@ function JobApplication() {
       toast.success("created successfully");
     },
     onError: (error) => {
-      console.log("Error while creating application:", error);
       toast.error(
         error.response?.data?.message || "Failed to create application",
       );
@@ -133,7 +132,6 @@ function JobApplication() {
       toast.success("updated successfully");
     },
     onError: (error) => {
-      console.log("Error while updating application:", error);
       toast.error(
         error.response?.data?.message || "Failed to update application",
       );
@@ -150,8 +148,7 @@ function JobApplication() {
       toast.success("deleted successfully");
     },
     onError: (error) => {
-      console.log("Error while deleting application:", error);
-      toast.success(
+      toast.error(
         error.response?.data?.message || "Failed to delete application",
       );
     },
@@ -164,7 +161,6 @@ function JobApplication() {
       error.response &&
       (error.response.status === 401 || error.response.status === 403)
     ) {
-      console.log("unauthorized or forbidden error: ", error);
       setUser(null);
       setIsAuthenticated(false);
       navigate("/login", { replace: true });

@@ -20,6 +20,12 @@ export function ResumeMatchPage() {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const emptyGeminiResponse = {
+    keywords: [],
+    tailored_bullets: [],
+    advisory_note: "",
+  };
+
   const {
     register,
     handleSubmit,
@@ -34,13 +40,16 @@ export function ResumeMatchPage() {
 
   const onSubmit = async (data) => {
     setIsLoading(true);
+    setGeminiResponse(emptyGeminiResponse);
     try {
+      if (geminiResponse.length > 0) {
+        setGeminiResponse("");
+      }
+
       const formData = new FormData();
 
-      // File inputs return a FileList
       formData.append("resume", data.resume[0]);
       formData.append("jobDescription", data.jobDescription);
-      console.log(formData);
 
       const response = await getJdKeyWordsMatcher(formData);
       const parsedResult =
@@ -50,16 +59,10 @@ export function ResumeMatchPage() {
 
       setGeminiResponse(parsedResult);
     } catch (error) {
-      // console.error(
-      //   "error while calling gemini",
-      //   error.response?.data?.error?.message,
-      // );
-
-      console.log("FULL ERROR:", error);
-      console.log("STATUS:", error.response?.status);
-      console.log("DATA:", error.response?.data);
-      console.log("ERROR:", error.response?.data?.error);
-      console.log("MESSAGE:", error.response?.data?.error?.message);
+      console.error(
+        "error while calling gemini",
+        error.response?.data?.error?.message,
+      );
 
       if (error.response?.status === 401 || error.response?.status === 403) {
         setUser(null);

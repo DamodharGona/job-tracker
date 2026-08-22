@@ -1,4 +1,4 @@
-import { AuthContext } from "@/components/app/authContext";
+import { ApiKeyContext, AuthContext } from "@/components/app/authContext";
 import { registerUser } from "@/repository/authApis";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const { setUser, setIsAuthenticated } = useContext(AuthContext);
+  const { setHasApiKey } = useContext(ApiKeyContext);
 
   const {
     register,
@@ -25,11 +26,17 @@ function SignUpPage() {
         email: data.email,
         password: data.password,
       });
-      console.log("Registration successful:", response);
       localStorage.setItem("user", JSON.stringify(response.user));
 
       setUser(response.user);
       setIsAuthenticated(true);
+
+      localStorage.setItem(
+        "hasApiKey",
+        JSON.stringify(response.user?.hasGeminiApiKey),
+      );
+      setHasApiKey(response.user?.hasGeminiApiKey);
+
       navigate("/");
     } catch (error) {
       console.error("Registration failed:", error);

@@ -93,10 +93,19 @@ export function AuthService() {
     }
 
     const encryptedKey = encrypt(geminiApiKey);
-    await updateUserGeminiApiKey(userId, encryptedKey);
+    const updatedUserDetails = await updateUserGeminiApiKey(
+      userId,
+      encryptedKey,
+    );
 
     return {
       message: "Gemini API Key updated successfully",
+      user: {
+        id: updatedUserDetails.id,
+        name: updatedUserDetails.name,
+        email: updatedUserDetails.email,
+        hasGeminiApiKey: updatedUserDetails.geminiApiKey !== null,
+      },
     };
   };
 
