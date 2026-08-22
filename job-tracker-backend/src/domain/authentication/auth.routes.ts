@@ -10,13 +10,26 @@ import {
   loginUserSchema,
   registerUserRequest,
   registerUserSchema,
+  updateGeminiApiKeyRequest,
 } from "./auth.schema.js";
+import { authMiddleWare } from "../../middleware/auth.middleware.js";
 
 const router: Router = express.Router();
 
 const isProduction = process.env.NODE_ENV === "production";
 
-const { registerUserService, loginUserService } = AuthService();
+const { registerUserService, loginUserService, updateGeminiApiKeyService } = AuthService();
+
+const updateGeminiApiKey = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  const payload = req.user as { userId: string; email: string };
+  const userId = payload.userId;
+  const { geminiApiKey } = req.body;
+  const result = await updateGeminiApiKeyService(userId, geminiApiKey);
+  res.status(200).json(result);
+};
 
 const registerUser = async (
   req: Request<any, any, registerUserRouterInput>,
@@ -194,5 +207,12 @@ router.post("/register", validateRequest(registerUserRequest), registerUser);
 router.post("/login", validateRequest(loginUserRequest), loginUser);
 
 router.post("/logout", logoutUser);
+
+router.patch(
+  "/gemini-key",
+  authMiddleWare,
+  validateRequest(updateGeminiApiKeyRequest),
+  updateGeminiApiKey,
+);
 
 export default router;

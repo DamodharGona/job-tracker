@@ -86,6 +86,7 @@ export const UserScalarFieldEnum = {
     name: 'name',
     email: 'email',
     passwordHash: 'passwordHash',
+    geminiApiKey: 'geminiApiKey',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };

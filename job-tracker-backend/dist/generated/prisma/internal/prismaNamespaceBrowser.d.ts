@@ -43,6 +43,7 @@ export declare const UserScalarFieldEnum: {
     readonly name: "name";
     readonly email: "email";
     readonly passwordHash: "passwordHash";
+    readonly geminiApiKey: "geminiApiKey";
     readonly createdAt: "createdAt";
     readonly updatedAt: "updatedAt";
 };

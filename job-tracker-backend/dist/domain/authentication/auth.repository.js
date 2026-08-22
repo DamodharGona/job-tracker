@@ -23,10 +23,21 @@ export function AuthRepository() {
             },
         });
     };
+    const updateUserGeminiApiKey = (userId, geminiApiKey) => {
+        return prisma.user.update({
+            where: {
+                id: userId,
+            },
+            data: {
+                geminiApiKey,
+            },
+        });
+    };
     return {
         registerUser,
         getUserByEmail,
         getUserById,
+        updateUserGeminiApiKey,
     };
 }
 //# sourceMappingURL=auth.repository.js.map
