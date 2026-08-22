@@ -218,8 +218,16 @@ export function ApplicationService() {
     if (!process.env.GEMINI_API_KEY) {
       throw new Error("Gemini API key is not configured");
     }
+
+    const geminiApiKey = user.geminiApiKey;
+
+    if (!geminiApiKey) {
+      throw AppErrors.badRequest(
+        "gemini api key required. please add in the profile setting",
+      );
+    }
     const ai = new GoogleGenAI({
-      apiKey: process.env.GEMINI_API_KEY,
+      apiKey: geminiApiKey,
     });
 
     const response = await ai.models.generateContent({
