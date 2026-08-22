@@ -73,7 +73,7 @@ function SettingsModal({ isOpen, onClose, onSave, data, isPending }) {
                 value={apiKey}
                 onChange={(e) => setApiKey(e.target.value)}
                 placeholder={
-                  data.hasGeminiApiKey
+                  data?.hasGeminiApiKey
                     ? "Enter new key to replace existing key"
                     : "Enter Gemini API key"
                 }
