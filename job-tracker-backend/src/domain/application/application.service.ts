@@ -223,8 +223,9 @@ export function ApplicationService() {
     const encryptedApiKey = user.geminiApiKey;
 
     if (!encryptedApiKey) {
-      throw AppErrors.badRequest(
+      throw AppErrors.notFound(
         "gemini api key required. please add in the profile setting",
+        "GEMINI_API_KEY_NOT_FOUND",
       );
     }
 
@@ -233,7 +234,10 @@ export function ApplicationService() {
       try {
         geminiApiKey = decrypt(encryptedApiKey);
       } catch (err) {
-        throw AppErrors.internal("Failed to decrypt Gemini API key", "DECRYPTION_FAILED");
+        throw AppErrors.internal(
+          "Failed to decrypt Gemini API key",
+          "DECRYPTION_FAILED",
+        );
       }
     }
 

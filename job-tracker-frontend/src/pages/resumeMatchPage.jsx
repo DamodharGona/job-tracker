@@ -59,6 +59,11 @@ export function ResumeMatchPage() {
         return;
       }
 
+      if (error.response?.status === 404) {
+        toast.error("please add gemini api key in profile settings");
+        return;
+      }
+
       toast.error(error.response?.data?.message ?? "Failed to call Gemini");
     } finally {
       setIsLoading(false);
