@@ -15,6 +15,7 @@ export type UserMinAggregateOutputType = {
     name: string | null;
     email: string | null;
     passwordHash: string | null;
+    geminiApiKey: string | null;
     createdAt: Date | null;
     updatedAt: Date | null;
 };
@@ -23,6 +24,7 @@ export type UserMaxAggregateOutputType = {
     name: string | null;
     email: string | null;
     passwordHash: string | null;
+    geminiApiKey: string | null;
     createdAt: Date | null;
     updatedAt: Date | null;
 };
@@ -31,6 +33,7 @@ export type UserCountAggregateOutputType = {
     name: number;
     email: number;
     passwordHash: number;
+    geminiApiKey: number;
     createdAt: number;
     updatedAt: number;
     _all: number;
@@ -40,6 +43,7 @@ export type UserMinAggregateInputType = {
     name?: true;
     email?: true;
     passwordHash?: true;
+    geminiApiKey?: true;
     createdAt?: true;
     updatedAt?: true;
 };
@@ -48,6 +52,7 @@ export type UserMaxAggregateInputType = {
     name?: true;
     email?: true;
     passwordHash?: true;
+    geminiApiKey?: true;
     createdAt?: true;
     updatedAt?: true;
 };
@@ -56,6 +61,7 @@ export type UserCountAggregateInputType = {
     name?: true;
     email?: true;
     passwordHash?: true;
+    geminiApiKey?: true;
     createdAt?: true;
     updatedAt?: true;
     _all?: true;
@@ -127,6 +133,7 @@ export type UserGroupByOutputType = {
     name: string;
     email: string;
     passwordHash: string;
+    geminiApiKey: string | null;
     createdAt: Date;
     updatedAt: Date;
     _count: UserCountAggregateOutputType | null;
@@ -144,6 +151,7 @@ export type UserWhereInput = {
     name?: Prisma.StringFilter<"User"> | string;
     email?: Prisma.StringFilter<"User"> | string;
     passwordHash?: Prisma.StringFilter<"User"> | string;
+    geminiApiKey?: Prisma.StringNullableFilter<"User"> | string | null;
     createdAt?: Prisma.DateTimeFilter<"User"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string;
     jobApplications?: Prisma.JobApplicationListRelationFilter;
@@ -153,6 +161,7 @@ export type UserOrderByWithRelationInput = {
     name?: Prisma.SortOrder;
     email?: Prisma.SortOrder;
     passwordHash?: Prisma.SortOrder;
+    geminiApiKey?: Prisma.SortOrderInput | Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
     jobApplications?: Prisma.JobApplicationOrderByRelationAggregateInput;
@@ -165,6 +174,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
     NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[];
     name?: Prisma.StringFilter<"User"> | string;
     passwordHash?: Prisma.StringFilter<"User"> | string;
+    geminiApiKey?: Prisma.StringNullableFilter<"User"> | string | null;
     createdAt?: Prisma.DateTimeFilter<"User"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string;
     jobApplications?: Prisma.JobApplicationListRelationFilter;
@@ -174,6 +184,7 @@ export type UserOrderByWithAggregationInput = {
     name?: Prisma.SortOrder;
     email?: Prisma.SortOrder;
     passwordHash?: Prisma.SortOrder;
+    geminiApiKey?: Prisma.SortOrderInput | Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
     _count?: Prisma.UserCountOrderByAggregateInput;
@@ -188,6 +199,7 @@ export type UserScalarWhereWithAggregatesInput = {
     name?: Prisma.StringWithAggregatesFilter<"User"> | string;
     email?: Prisma.StringWithAggregatesFilter<"User"> | string;
     passwordHash?: Prisma.StringWithAggregatesFilter<"User"> | string;
+    geminiApiKey?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null;
     createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string;
     updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string;
 };
@@ -196,6 +208,7 @@ export type UserCreateInput = {
     name: string;
     email: string;
     passwordHash: string;
+    geminiApiKey?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutUserInput;
@@ -205,6 +218,7 @@ export type UserUncheckedCreateInput = {
     name: string;
     email: string;
     passwordHash: string;
+    geminiApiKey?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutUserInput;
@@ -214,6 +228,7 @@ export type UserUpdateInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     email?: Prisma.StringFieldUpdateOperationsInput | string;
     passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
+    geminiApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     jobApplications?: Prisma.JobApplicationUpdateManyWithoutUserNestedInput;
@@ -223,6 +238,7 @@ export type UserUncheckedUpdateInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     email?: Prisma.StringFieldUpdateOperationsInput | string;
     passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
+    geminiApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutUserNestedInput;
@@ -232,6 +248,7 @@ export type UserCreateManyInput = {
     name: string;
     email: string;
     passwordHash: string;
+    geminiApiKey?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
 };
@@ -240,6 +257,7 @@ export type UserUpdateManyMutationInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     email?: Prisma.StringFieldUpdateOperationsInput | string;
     passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
+    geminiApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -248,6 +266,7 @@ export type UserUncheckedUpdateManyInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     email?: Prisma.StringFieldUpdateOperationsInput | string;
     passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
+    geminiApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -256,6 +275,7 @@ export type UserCountOrderByAggregateInput = {
     name?: Prisma.SortOrder;
     email?: Prisma.SortOrder;
     passwordHash?: Prisma.SortOrder;
+    geminiApiKey?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
 };
@@ -264,6 +284,7 @@ export type UserMaxOrderByAggregateInput = {
     name?: Prisma.SortOrder;
     email?: Prisma.SortOrder;
     passwordHash?: Prisma.SortOrder;
+    geminiApiKey?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
 };
@@ -272,6 +293,7 @@ export type UserMinOrderByAggregateInput = {
     name?: Prisma.SortOrder;
     email?: Prisma.SortOrder;
     passwordHash?: Prisma.SortOrder;
+    geminiApiKey?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
 };
@@ -281,6 +303,9 @@ export type UserScalarRelationFilter = {
 };
 export type StringFieldUpdateOperationsInput = {
     set?: string;
+};
+export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null;
 };
 export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string;
@@ -302,6 +327,7 @@ export type UserCreateWithoutJobApplicationsInput = {
     name: string;
     email: string;
     passwordHash: string;
+    geminiApiKey?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
 };
@@ -310,6 +336,7 @@ export type UserUncheckedCreateWithoutJobApplicationsInput = {
     name: string;
     email: string;
     passwordHash: string;
+    geminiApiKey?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
 };
@@ -331,6 +358,7 @@ export type UserUpdateWithoutJobApplicationsInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     email?: Prisma.StringFieldUpdateOperationsInput | string;
     passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
+    geminiApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -339,6 +367,7 @@ export type UserUncheckedUpdateWithoutJobApplicationsInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     email?: Prisma.StringFieldUpdateOperationsInput | string;
     passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
+    geminiApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -371,6 +400,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
     name?: boolean;
     email?: boolean;
     passwordHash?: boolean;
+    geminiApiKey?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
     jobApplications?: boolean | Prisma.User$jobApplicationsArgs<ExtArgs>;
@@ -381,6 +411,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
     name?: boolean;
     email?: boolean;
     passwordHash?: boolean;
+    geminiApiKey?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
 }, ExtArgs["result"]["user"]>;
@@ -389,6 +420,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
     name?: boolean;
     email?: boolean;
     passwordHash?: boolean;
+    geminiApiKey?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
 }, ExtArgs["result"]["user"]>;
@@ -397,10 +429,11 @@ export type UserSelectScalar = {
     name?: boolean;
     email?: boolean;
     passwordHash?: boolean;
+    geminiApiKey?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
 };
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>;
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "geminiApiKey" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>;
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     jobApplications?: boolean | Prisma.User$jobApplicationsArgs<ExtArgs>;
     _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
@@ -417,6 +450,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
         name: string;
         email: string;
         passwordHash: string;
+        geminiApiKey: string | null;
         createdAt: Date;
         updatedAt: Date;
     }, ExtArgs["result"]["user"]>;
@@ -778,6 +812,7 @@ export interface UserFieldRefs {
     readonly name: Prisma.FieldRef<"User", 'String'>;
     readonly email: Prisma.FieldRef<"User", 'String'>;
     readonly passwordHash: Prisma.FieldRef<"User", 'String'>;
+    readonly geminiApiKey: Prisma.FieldRef<"User", 'String'>;
     readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>;
     readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>;
 }

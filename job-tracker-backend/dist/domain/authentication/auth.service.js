@@ -1,8 +1,9 @@
 import { AppErrors } from "../../errors/app.errors.js";
 import { generateToken } from "../../utils/jwt.js";
+import { encrypt } from "../../utils/encryption.js";
 import { AuthRepository } from "./auth.repository.js";
 import bcrypt from "bcrypt";
-const { getUserByEmail, registerUser } = AuthRepository();
+const { getUserByEmail, registerUser, getUserById, updateUserGeminiApiKey } = AuthRepository();
 export function AuthService() {
     const registerUserService = async (input) => {
         const user = await getUserByEmail(input.email);
@@ -49,9 +50,21 @@ export function AuthService() {
             },
         };
     };
+    const updateGeminiApiKeyService = async (userId, geminiApiKey) => {
+        const user = await getUserById(userId);
+        if (!user) {
+            throw AppErrors.notFound("user does not exist", "USER_NOT_FOUND");
+        }
+        const encryptedKey = encrypt(geminiApiKey);
+        await updateUserGeminiApiKey(userId, encryptedKey);
+        return {
+            message: "Gemini API Key updated successfully",
+        };
+    };
     return {
         registerUserService,
         loginUserService,
+        updateGeminiApiKeyService,
     };
 }
 //# sourceMappingURL=auth.service.js.map

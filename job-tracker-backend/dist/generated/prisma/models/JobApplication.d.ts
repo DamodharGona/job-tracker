@@ -459,9 +459,6 @@ export type JobApplicationUncheckedUpdateManyWithoutUserNestedInput = {
     updateMany?: Prisma.JobApplicationUpdateManyWithWhereWithoutUserInput | Prisma.JobApplicationUpdateManyWithWhereWithoutUserInput[];
     deleteMany?: Prisma.JobApplicationScalarWhereInput | Prisma.JobApplicationScalarWhereInput[];
 };
-export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null;
-};
 export type JobApplicationCreateNestedOneWithoutKeywordAnalysesInput = {
     create?: Prisma.XOR<Prisma.JobApplicationCreateWithoutKeywordAnalysesInput, Prisma.JobApplicationUncheckedCreateWithoutKeywordAnalysesInput>;
     connectOrCreate?: Prisma.JobApplicationCreateOrConnectWithoutKeywordAnalysesInput;

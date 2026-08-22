@@ -2,5 +2,8 @@ import type { LoginUserServiceInput, registerUserServiceResponse, loginUserServi
 export declare function AuthService(): {
     registerUserService: (input: RegisterUserServiceInput) => Promise<registerUserServiceResponse>;
     loginUserService: (input: LoginUserServiceInput) => Promise<loginUserServiceResponse>;
+    updateGeminiApiKeyService: (userId: string, geminiApiKey: string) => Promise<{
+        message: string;
+    }>;
 };
 //# sourceMappingURL=auth.service.d.ts.map

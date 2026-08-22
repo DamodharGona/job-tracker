@@ -24,5 +24,6 @@ export const AppErrors = {
     invalidToken: (msg) => new AppError(msg, 401, "INVALID_TOKEN"),
     invalidCredentials: (msg) => new AppError(msg, 400, "INVALID_CREDENTIALS"),
     phoneNumberTaken: (phoneNumber) => new AppError(`${phoneNumber} is already registered`, 409, "PHONE_NUMBER_TAKEN"),
+    internal: (msg, code) => new AppError(msg, 500, code),
 };
 //# sourceMappingURL=app.errors.js.map

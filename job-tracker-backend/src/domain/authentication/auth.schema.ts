@@ -17,6 +17,7 @@ export const registerUserResponse = z.object({
     id: z.string(),
     name: z.string(),
     email: z.string(),
+    hasGeminiApiKey: z.boolean(),
   }),
 });
 
@@ -74,4 +75,19 @@ export const registerUserSchema = z.object({
 export const loginUserSchema = z.object({
   request: loginUserRequest,
   response: registerUserResponse,
+});
+
+export const updateGeminiApiKeyBody = z.object({
+  geminiApiKey: z.string().min(1, "Gemini API key is required"),
+});
+
+export const updateGeminiApiKeyRequest = z.object({
+  body: updateGeminiApiKeyBody,
+});
+
+export const updateGeminiApiKeySchema = z.object({
+  request: updateGeminiApiKeyRequest,
+  response: z.object({
+    message: z.string(),
+  }),
 });

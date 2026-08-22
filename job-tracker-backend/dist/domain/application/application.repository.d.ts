@@ -4,6 +4,7 @@ export declare function ApplicationRepository(): {
         id: string;
         createdAt: Date;
         updatedAt: Date;
+        userId: string;
         companyName: string;
         jobTitle: string;
         salaryRange: string;
@@ -12,7 +13,6 @@ export declare function ApplicationRepository(): {
         dueDate: string | null;
         stage: string | null;
         mode: string | null;
-        userId: string;
     }, never, import("@prisma/client/runtime/client").DefaultArgs, {
         omit: import("../../generated/prisma/internal/prismaNamespace.js").GlobalOmitConfig | undefined;
     }>;
@@ -21,6 +21,7 @@ export declare function ApplicationRepository(): {
             id: string;
             createdAt: Date;
             updatedAt: Date;
+            userId: string;
             companyName: string;
             jobTitle: string;
             salaryRange: string;
@@ -29,7 +30,6 @@ export declare function ApplicationRepository(): {
             dueDate: string | null;
             stage: string | null;
             mode: string | null;
-            userId: string;
         }[];
         totalApplications: number;
     }>;
@@ -37,6 +37,7 @@ export declare function ApplicationRepository(): {
         id: string;
         createdAt: Date;
         updatedAt: Date;
+        userId: string;
         companyName: string;
         jobTitle: string;
         salaryRange: string;
@@ -45,7 +46,6 @@ export declare function ApplicationRepository(): {
         dueDate: string | null;
         stage: string | null;
         mode: string | null;
-        userId: string;
     } | null, null, import("@prisma/client/runtime/client").DefaultArgs, {
         omit: import("../../generated/prisma/internal/prismaNamespace.js").GlobalOmitConfig | undefined;
     }>;
@@ -53,6 +53,7 @@ export declare function ApplicationRepository(): {
         id: string;
         createdAt: Date;
         updatedAt: Date;
+        userId: string;
         companyName: string;
         jobTitle: string;
         salaryRange: string;
@@ -61,7 +62,6 @@ export declare function ApplicationRepository(): {
         dueDate: string | null;
         stage: string | null;
         mode: string | null;
-        userId: string;
     }, never, import("@prisma/client/runtime/client").DefaultArgs, {
         omit: import("../../generated/prisma/internal/prismaNamespace.js").GlobalOmitConfig | undefined;
     }>;
@@ -69,6 +69,7 @@ export declare function ApplicationRepository(): {
         id: string;
         createdAt: Date;
         updatedAt: Date;
+        userId: string;
         companyName: string;
         jobTitle: string;
         salaryRange: string;
@@ -77,7 +78,6 @@ export declare function ApplicationRepository(): {
         dueDate: string | null;
         stage: string | null;
         mode: string | null;
-        userId: string;
     }, never, import("@prisma/client/runtime/client").DefaultArgs, {
         omit: import("../../generated/prisma/internal/prismaNamespace.js").GlobalOmitConfig | undefined;
     }>;
@@ -86,6 +86,7 @@ export declare function ApplicationRepository(): {
             id: string;
             createdAt: Date;
             updatedAt: Date;
+            userId: string;
             companyName: string;
             jobTitle: string;
             salaryRange: string;
@@ -94,7 +95,6 @@ export declare function ApplicationRepository(): {
             dueDate: string | null;
             stage: string | null;
             mode: string | null;
-            userId: string;
         }[];
         totalApplications: number;
     }>;
@@ -103,6 +103,7 @@ export declare function ApplicationRepository(): {
             id: string;
             createdAt: Date;
             updatedAt: Date;
+            userId: string;
             companyName: string;
             jobTitle: string;
             salaryRange: string;
@@ -111,7 +112,6 @@ export declare function ApplicationRepository(): {
             dueDate: string | null;
             stage: string | null;
             mode: string | null;
-            userId: string;
         }[];
         totalApplications: number;
     }>;
@@ -137,6 +137,7 @@ export declare function ApplicationRepository(): {
         id: string;
         createdAt: Date;
         updatedAt: Date;
+        userId: string;
         companyName: string;
         jobTitle: string;
         salaryRange: string;
@@ -145,7 +146,6 @@ export declare function ApplicationRepository(): {
         dueDate: string | null;
         stage: string | null;
         mode: string | null;
-        userId: string;
     }[]>;
 };
 //# sourceMappingURL=application.repository.d.ts.map

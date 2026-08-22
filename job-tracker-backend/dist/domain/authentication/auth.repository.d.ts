@@ -4,6 +4,7 @@ export declare function AuthRepository(): {
         id: string;
         name: string;
         email: string;
+        geminiApiKey: string | null;
         passwordHash: string;
         createdAt: Date;
         updatedAt: Date;
@@ -14,6 +15,7 @@ export declare function AuthRepository(): {
         id: string;
         name: string;
         email: string;
+        geminiApiKey: string | null;
         passwordHash: string;
         createdAt: Date;
         updatedAt: Date;
@@ -24,10 +26,22 @@ export declare function AuthRepository(): {
         id: string;
         name: string;
         email: string;
+        geminiApiKey: string | null;
         passwordHash: string;
         createdAt: Date;
         updatedAt: Date;
     } | null, null, import("@prisma/client/runtime/client").DefaultArgs, {
+        omit: import("../../generated/prisma/internal/prismaNamespace.js").GlobalOmitConfig | undefined;
+    }>;
+    updateUserGeminiApiKey: (userId: string, geminiApiKey: string) => import("../../generated/prisma/models.js").Prisma__UserClient<{
+        id: string;
+        name: string;
+        email: string;
+        geminiApiKey: string | null;
+        passwordHash: string;
+        createdAt: Date;
+        updatedAt: Date;
+    }, never, import("@prisma/client/runtime/client").DefaultArgs, {
         omit: import("../../generated/prisma/internal/prismaNamespace.js").GlobalOmitConfig | undefined;
     }>;
 };

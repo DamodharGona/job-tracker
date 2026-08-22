@@ -1,9 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 
-import { logoutUser } from "../repository/applicationApis";
+import { logoutUser, saveGeminiApiKey } from "../repository/applicationApis";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 
-import { FiBriefcase, FiHome, FiLogOut, FiSun, FiTag } from "react-icons/fi";
+import {
+  FiBriefcase,
+  FiHome,
+  FiLogOut,
+  FiSettings,
+  FiSun,
+  FiTag,
+} from "react-icons/fi";
 
 import "react-toastify/dist/ReactToastify.css";
 import SideBarModal from "../components/app/sideBarModal";
@@ -15,6 +22,10 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import SettingsModal from "@/components/app/settingsModdal";
+import LogoutConfirmationModal from "@/components/app/logoutConfirmationModal";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 function HomePage() {
   const [isSideBarModalOpen, setIsSideBarModalOpen] = useState(false);
@@ -22,6 +33,11 @@ function HomePage() {
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem("theme") || "light";
   });
+  const [isSettingModalOpen, setIsSettingModalOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (theme === "dark") {
@@ -37,17 +53,46 @@ function HomePage() {
 
   const handleOnLogoutClick = async () => {
     try {
+      setIsLoggingOut(true);
       await logoutUser();
       setUser(null);
       setIsAuthenticated(false);
       navigate("/login", { replace: true });
     } catch (e) {
       console.log(e);
+    } finally {
+      setIsLoggingOut(false);
+      setIsLogoutModalOpen(false);
     }
   };
 
   const handleMenuClick = () => {
     setIsSideBarModalOpen(true);
+  };
+
+  const createMutation = useMutation({
+    mutationFn: saveGeminiApiKey,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["queryResult"],
+      });
+
+      toast.success("saved successfully");
+      setIsSettingModalOpen(false);
+    },
+    onError: (error) => {
+      console.log("Error while saving API key:", error);
+      toast.error(
+        error.response?.data?.message || "Failed to save API key",
+      );
+    },
+  });
+
+  const handleOnSave = (apiKey) => {
+    console.log("saving api key....");
+    createMutation.mutate({
+      geminiApiKey: apiKey,
+    });
   };
 
   return (
@@ -79,7 +124,10 @@ function HomePage() {
               </span>
             </Link>
 
-            <DropdownMenu>
+            <DropdownMenu
+              open={isDropdownOpen}
+              onOpenChange={setIsDropdownOpen}
+            >
               <DropdownMenuTrigger>
                 <section className="flex gap-x-2 items-center text-sm uppercase tracking-wider cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 rounded-md hover:font-semibold pl-2 py-1.5  transition-colors">
                   <span className="border rounded-full px-1 bg-blue-300 text-black">
@@ -88,7 +136,7 @@ function HomePage() {
                   <span>{user?.name}</span>
                 </section>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-full">
+              <DropdownMenuContent className="w-full flex flex-col gap-y-2">
                 <div className="border border-transparent rounded-md bg-black/10 dark:bg-white/10 flex p-0.5 transition-colors">
                   <span
                     onClick={() => setTheme("light")}
@@ -106,7 +154,20 @@ function HomePage() {
                   </span>
                 </div>
                 <span
-                  onClick={handleOnLogoutClick}
+                  onClick={() => {
+                    setIsDropdownOpen(false);
+                    setIsSettingModalOpen(true);
+                  }}
+                  className="flex w-full gap-x-2 items-center text-sm uppercase tracking-wider cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 rounded-md hover:font-semibold pl-2 py-1.5 mr-5 transition-colors"
+                >
+                  <FiSettings />
+                  Settings
+                </span>
+                <span
+                  onClick={() => {
+                    setIsDropdownOpen(false);
+                    setIsLogoutModalOpen(true);
+                  }}
                   className="flex w-full gap-x-2 items-center text-sm uppercase tracking-wider cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 rounded-md hover:font-semibold pl-2 py-1.5 mr-5 transition-colors"
                 >
                   <FiLogOut />
@@ -124,9 +185,29 @@ function HomePage() {
       <SideBarModal
         isSideBarOpen={isSideBarModalOpen}
         onClose={() => setIsSideBarModalOpen(false)}
-        onLogoutClicked={handleOnLogoutClick}
+        onLogoutClicked={() => {
+          setIsSideBarModalOpen(false);
+          setIsLogoutModalOpen(true);
+        }}
+        onSettingsClicked={() => {
+          setIsSideBarModalOpen(false);
+          setIsSettingModalOpen(true);
+        }}
         theme={theme}
         setTheme={setTheme}
+      />
+      <SettingsModal
+        onClose={() => setIsSettingModalOpen(false)}
+        isOpen={isSettingModalOpen}
+        onSave={handleOnSave}
+        data={user}
+        isPending={createMutation.isPending}
+      />
+      <LogoutConfirmationModal
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        onConfirm={handleOnLogoutClick}
+        isPending={isLoggingOut}
       />
     </>
   );

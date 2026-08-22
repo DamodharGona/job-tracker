@@ -68,4 +68,22 @@ export declare const loginUserSchema: z.ZodObject<{
         }, z.core.$strip>;
     }, z.core.$strip>;
 }, z.core.$strip>;
+export declare const updateGeminiApiKeyBody: z.ZodObject<{
+    geminiApiKey: z.ZodString;
+}, z.core.$strip>;
+export declare const updateGeminiApiKeyRequest: z.ZodObject<{
+    body: z.ZodObject<{
+        geminiApiKey: z.ZodString;
+    }, z.core.$strip>;
+}, z.core.$strip>;
+export declare const updateGeminiApiKeySchema: z.ZodObject<{
+    request: z.ZodObject<{
+        body: z.ZodObject<{
+            geminiApiKey: z.ZodString;
+        }, z.core.$strip>;
+    }, z.core.$strip>;
+    response: z.ZodObject<{
+        message: z.ZodString;
+    }, z.core.$strip>;
+}, z.core.$strip>;
 //# sourceMappingURL=auth.schema.d.ts.map

@@ -1,5 +1,6 @@
 import { ApplicationRepository } from "./application.repository.js";
 import { AppErrors } from "../../errors/app.errors.js";
+import { decrypt } from "../../utils/encryption.js";
 import type {
   CreateJobApplicationInput,
   UpdateJobApplicationInput,
@@ -218,8 +219,26 @@ export function ApplicationService() {
     if (!process.env.GEMINI_API_KEY) {
       throw new Error("Gemini API key is not configured");
     }
+
+    const encryptedApiKey = user.geminiApiKey;
+
+    if (!encryptedApiKey) {
+      throw AppErrors.badRequest(
+        "gemini api key required. please add in the profile setting",
+      );
+    }
+
+    let geminiApiKey = encryptedApiKey;
+    if (encryptedApiKey.includes(":")) {
+      try {
+        geminiApiKey = decrypt(encryptedApiKey);
+      } catch (err) {
+        throw AppErrors.internal("Failed to decrypt Gemini API key", "DECRYPTION_FAILED");
+      }
+    }
+
     const ai = new GoogleGenAI({
-      apiKey: process.env.GEMINI_API_KEY,
+      apiKey: geminiApiKey,
     });
 
     const response = await ai.models.generateContent({

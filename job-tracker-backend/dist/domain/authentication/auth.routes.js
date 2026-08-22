@@ -1,10 +1,18 @@
 import express, {} from "express";
 import { AuthService } from "./auth.service.js";
 import { validateRequest } from "../../middleware/validation.middleware.js";
-import { loginUserRequest, loginUserSchema, registerUserRequest, registerUserSchema, } from "./auth.schema.js";
+import { loginUserRequest, loginUserSchema, registerUserRequest, registerUserSchema, updateGeminiApiKeyRequest, } from "./auth.schema.js";
+import { authMiddleWare } from "../../middleware/auth.middleware.js";
 const router = express.Router();
 const isProduction = process.env.NODE_ENV === "production";
-const { registerUserService, loginUserService } = AuthService();
+const { registerUserService, loginUserService, updateGeminiApiKeyService } = AuthService();
+const updateGeminiApiKey = async (req, res) => {
+    const payload = req.user;
+    const userId = payload.userId;
+    const { geminiApiKey } = req.body;
+    const result = await updateGeminiApiKeyService(userId, geminiApiKey);
+    res.status(200).json(result);
+};
 const registerUser = async (req, res) => {
     const result = await registerUserService(req.body);
     res.cookie("token", result.token, {
@@ -166,5 +174,6 @@ router.post("/register", validateRequest(registerUserRequest), registerUser);
  */
 router.post("/login", validateRequest(loginUserRequest), loginUser);
 router.post("/logout", logoutUser);
+router.patch("/gemini-key", authMiddleWare, validateRequest(updateGeminiApiKeyRequest), updateGeminiApiKey);
 export default router;
 //# sourceMappingURL=auth.routes.js.map

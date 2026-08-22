@@ -1,4 +1,11 @@
-import { FiBriefcase, FiHome, FiLogOut, FiSun, FiTag } from "react-icons/fi";
+import {
+  FiBriefcase,
+  FiHome,
+  FiLogOut,
+  FiSun,
+  FiTag,
+  FiSettings,
+} from "react-icons/fi";
 import { MdOutlineClose } from "react-icons/md";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
@@ -15,6 +22,7 @@ function SideBarModal({
   isSideBarOpen,
   onClose,
   onLogoutClicked,
+  onSettingsClicked,
   theme,
   setTheme,
 }) {
@@ -73,7 +81,7 @@ function SideBarModal({
                 <span>{user?.name}</span>
               </section>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-full">
+            <DropdownMenuContent className="w-full flex flex-col gap-y-2">
               <div className="border border-transparent rounded-md bg-black/10 dark:bg-white/10 flex p-0.5 transition-colors">
                 <span
                   onClick={() => setTheme("light")}
@@ -88,6 +96,14 @@ function SideBarModal({
                   <LuMoonStar />
                 </span>
               </div>
+
+              <span
+                onClick={onSettingsClicked}
+                className="flex gap-x-2 items-center text-sm uppercase tracking-wider cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 rounded-md hover:font-semibold px-2 py-1 md:px-3 md:py-1.5 transition-colors"
+              >
+                <FiSettings />
+                Settings
+              </span>
 
               <span
                 onClick={onLogoutClicked}

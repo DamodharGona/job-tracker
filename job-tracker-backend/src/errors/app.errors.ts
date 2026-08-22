@@ -34,4 +34,6 @@ export const AppErrors = {
       409,
       "PHONE_NUMBER_TAKEN",
     ),
+  internal: (msg: string, code: string) =>
+    new AppError(msg, 500, code),
 };

@@ -14,5 +14,6 @@ export declare const AppErrors: {
     invalidToken: (msg: string) => AppError;
     invalidCredentials: (msg: string) => AppError;
     phoneNumberTaken: (phoneNumber: string) => AppError;
+    internal: (msg: string, code: string) => AppError;
 };
 //# sourceMappingURL=app.errors.d.ts.map

@@ -1,5 +1,6 @@
 import { AppErrors } from "../../errors/app.errors.js";
 import { generateToken } from "../../utils/jwt.js";
+import { encrypt } from "../../utils/encryption.js";
 import { AuthRepository } from "./auth.repository.js";
 import type {
   LoginUserServiceInput,
@@ -9,7 +10,8 @@ import type {
 } from "./auth.types.js";
 import bcrypt from "bcrypt";
 
-const { getUserByEmail, registerUser } = AuthRepository();
+const { getUserByEmail, registerUser, getUserById, updateUserGeminiApiKey } =
+  AuthRepository();
 
 export function AuthService() {
   const registerUserService = async (
@@ -37,6 +39,7 @@ export function AuthService() {
         id: newUser.id,
         name: newUser.name,
         email: newUser.email,
+        hasGeminiApiKey: false,
       },
     };
   };
@@ -66,6 +69,7 @@ export function AuthService() {
     }
 
     const token = generateToken({ userId: user.id, email: user.email });
+    const hasGeminiApiKey = user.geminiApiKey !== null;
 
     return {
       message: "logged in successfully",
@@ -74,12 +78,31 @@ export function AuthService() {
         id: user.id,
         name: user.name,
         email: user.email,
+        hasGeminiApiKey: hasGeminiApiKey,
       },
+    };
+  };
+
+  const updateGeminiApiKeyService = async (
+    userId: string,
+    geminiApiKey: string,
+  ) => {
+    const user = await getUserById(userId);
+    if (!user) {
+      throw AppErrors.notFound("user does not exist", "USER_NOT_FOUND");
+    }
+
+    const encryptedKey = encrypt(geminiApiKey);
+    await updateUserGeminiApiKey(userId, encryptedKey);
+
+    return {
+      message: "Gemini API Key updated successfully",
     };
   };
 
   return {
     registerUserService,
     loginUserService,
+    updateGeminiApiKeyService,
   };
 }

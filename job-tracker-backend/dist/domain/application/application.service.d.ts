@@ -4,6 +4,7 @@ export declare function ApplicationService(): {
         id: string;
         createdAt: Date;
         updatedAt: Date;
+        userId: string;
         companyName: string;
         jobTitle: string;
         salaryRange: string;
@@ -12,13 +13,13 @@ export declare function ApplicationService(): {
         dueDate: string | null;
         stage: string | null;
         mode: string | null;
-        userId: string;
     }>;
     getAllJobApplicationsService: (userId: string, limit: number, page: number, status?: string, searchText?: string, whatFor?: string) => Promise<{
         applications: {
             id: string;
             createdAt: Date;
             updatedAt: Date;
+            userId: string;
             companyName: string;
             jobTitle: string;
             salaryRange: string;
@@ -27,7 +28,6 @@ export declare function ApplicationService(): {
             dueDate: string | null;
             stage: string | null;
             mode: string | null;
-            userId: string;
         }[];
         meta: {
             totalApplications: number;
@@ -42,6 +42,7 @@ export declare function ApplicationService(): {
             id: string;
             createdAt: Date;
             updatedAt: Date;
+            userId: string;
             companyName: string;
             jobTitle: string;
             salaryRange: string;
@@ -50,7 +51,6 @@ export declare function ApplicationService(): {
             dueDate: string | null;
             stage: string | null;
             mode: string | null;
-            userId: string;
         }[];
         meta?: never;
     }>;
@@ -58,6 +58,7 @@ export declare function ApplicationService(): {
         id: string;
         createdAt: Date;
         updatedAt: Date;
+        userId: string;
         companyName: string;
         jobTitle: string;
         salaryRange: string;
@@ -66,12 +67,12 @@ export declare function ApplicationService(): {
         dueDate: string | null;
         stage: string | null;
         mode: string | null;
-        userId: string;
     }>;
     updateJobApplicationService: (id: string, userId: string, data: UpdateJobApplicationInput) => Promise<{
         id: string;
         createdAt: Date;
         updatedAt: Date;
+        userId: string;
         companyName: string;
         jobTitle: string;
         salaryRange: string;
@@ -80,7 +81,6 @@ export declare function ApplicationService(): {
         dueDate: string | null;
         stage: string | null;
         mode: string | null;
-        userId: string;
     }>;
     deleteJobApplicationService: (id: string, userId: string) => Promise<{
         message: string;

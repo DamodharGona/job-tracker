@@ -1,8 +1,11 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: (import.meta.env.VITE_API_BASE_URL || "http://localhost:4000/api")
-    .replace(/\/api\/?$/, "") + "/api",
+  baseURL:
+    (import.meta.env.VITE_API_BASE_URL || "http://localhost:4000/api").replace(
+      /\/api\/?$/,
+      "",
+    ) + "/api",
   withCredentials: true,
 });
 
@@ -142,6 +145,18 @@ export const getJdKeyWordsMatcher = async (formData) => {
     console.log("api is called");
     const res = await api.post("/applications/jd-keyword-matcher", formData);
     console.log(res.data);
+    return res.data;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+
+export const saveGeminiApiKey = async ({ geminiApiKey }) => {
+  try {
+    const res = await api.patch("/auth/gemini-key", {
+      geminiApiKey,
+    });
     return res.data;
   } catch (err) {
     console.log(err);
