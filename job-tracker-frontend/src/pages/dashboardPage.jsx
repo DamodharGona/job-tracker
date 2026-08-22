@@ -80,8 +80,6 @@ export function Dashboard() {
     placeholderData: (keepPreviousData) => keepPreviousData,
   });
 
-  console.log("data from be:", queryResult);
-
   const filteredData = useMemo(() => {
     if (!queryResult || !Array.isArray(queryResult)) return [];
     return queryResult.map((item) => {
@@ -176,7 +174,6 @@ export function Dashboard() {
       error.response &&
       (error.response.status === 401 || error.response.status === 403)
     ) {
-      console.log("unauthorized or forbidden error: ", error);
       toast.error("please login.");
       setUser(null);
       setIsAuthenticated(false);

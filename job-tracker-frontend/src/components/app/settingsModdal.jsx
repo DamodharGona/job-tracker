@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaKey } from "react-icons/fa";
 import { FiUser, FiMail, FiInfo } from "react-icons/fi";
 import { IoCloseOutline as CloseIcon } from "react-icons/io5";
+import { ApiKeyContext } from "./authContext";
 
 function SettingsModal({ isOpen, onClose, onSave, data, isPending }) {
   const [apiKey, setApiKey] = useState("");
+  const { hasApiKey } = useContext(ApiKeyContext);
 
   if (!isOpen) return null;
 
@@ -12,6 +14,7 @@ function SettingsModal({ isOpen, onClose, onSave, data, isPending }) {
     e.preventDefault();
     if (!apiKey.trim()) return;
     onSave(apiKey.trim());
+    setApiKey("");
   };
 
   return (
@@ -73,7 +76,7 @@ function SettingsModal({ isOpen, onClose, onSave, data, isPending }) {
                 value={apiKey}
                 onChange={(e) => setApiKey(e.target.value)}
                 placeholder={
-                  data?.hasGeminiApiKey
+                  hasApiKey
                     ? "Enter new key to replace existing key"
                     : "Enter Gemini API key"
                 }

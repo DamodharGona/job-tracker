@@ -4,6 +4,12 @@ export declare function AuthService(): {
     loginUserService: (input: LoginUserServiceInput) => Promise<loginUserServiceResponse>;
     updateGeminiApiKeyService: (userId: string, geminiApiKey: string) => Promise<{
         message: string;
+        user: {
+            id: string;
+            name: string;
+            email: string;
+            hasGeminiApiKey: boolean;
+        };
     }>;
 };
 //# sourceMappingURL=auth.service.d.ts.map

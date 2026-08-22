@@ -13,6 +13,7 @@ export const registerUserResponse = z.object({
         id: z.string(),
         name: z.string(),
         email: z.string(),
+        hasGeminiApiKey: z.boolean(),
     }),
 });
 export const registerUserBody = z.object({
@@ -63,6 +64,12 @@ export const updateGeminiApiKeySchema = z.object({
     request: updateGeminiApiKeyRequest,
     response: z.object({
         message: z.string(),
+        user: z.object({
+            id: z.string(),
+            name: z.string(),
+            email: z.string(),
+            hasGeminiApiKey: z.boolean(),
+        }).optional(),
     }),
 });
 //# sourceMappingURL=auth.schema.js.map

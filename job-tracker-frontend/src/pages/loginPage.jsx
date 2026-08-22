@@ -4,12 +4,13 @@ import { useNavigate } from "react-router-dom";
 
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
-import { AuthContext } from "@/components/app/authContext";
+import { ApiKeyContext, AuthContext } from "@/components/app/authContext";
 import { loginUser } from "@/repository/authApis";
 
 function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const { setUser, setIsAuthenticated } = useContext(AuthContext);
+  const { setHasApiKey } = useContext(ApiKeyContext);
 
   const {
     register,
@@ -34,6 +35,12 @@ function LoginPage() {
       setUser(response.user);
       setIsAuthenticated(true);
       localStorage.setItem("user", JSON.stringify(response.user));
+
+      localStorage.setItem(
+        "hasApiKey",
+        JSON.stringify(response.user?.hasGeminiApiKey),
+      );
+      setHasApiKey(response.user?.hasGeminiApiKey);
 
       toast.success("Login successful");
       navigate("/");

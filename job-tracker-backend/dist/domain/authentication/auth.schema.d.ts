@@ -5,6 +5,7 @@ export declare const registerUserResponse: z.ZodObject<{
         id: z.ZodString;
         name: z.ZodString;
         email: z.ZodString;
+        hasGeminiApiKey: z.ZodBoolean;
     }, z.core.$strip>;
 }, z.core.$strip>;
 export declare const registerUserBody: z.ZodObject<{
@@ -49,6 +50,7 @@ export declare const registerUserSchema: z.ZodObject<{
             id: z.ZodString;
             name: z.ZodString;
             email: z.ZodString;
+            hasGeminiApiKey: z.ZodBoolean;
         }, z.core.$strip>;
     }, z.core.$strip>;
 }, z.core.$strip>;
@@ -65,6 +67,7 @@ export declare const loginUserSchema: z.ZodObject<{
             id: z.ZodString;
             name: z.ZodString;
             email: z.ZodString;
+            hasGeminiApiKey: z.ZodBoolean;
         }, z.core.$strip>;
     }, z.core.$strip>;
 }, z.core.$strip>;
@@ -84,6 +87,12 @@ export declare const updateGeminiApiKeySchema: z.ZodObject<{
     }, z.core.$strip>;
     response: z.ZodObject<{
         message: z.ZodString;
+        user: z.ZodOptional<z.ZodObject<{
+            id: z.ZodString;
+            name: z.ZodString;
+            email: z.ZodString;
+            hasGeminiApiKey: z.ZodBoolean;
+        }, z.core.$strip>>;
     }, z.core.$strip>;
 }, z.core.$strip>;
 //# sourceMappingURL=auth.schema.d.ts.map
