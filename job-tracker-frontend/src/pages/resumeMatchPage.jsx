@@ -50,7 +50,10 @@ export function ResumeMatchPage() {
 
       setGeminiResponse(parsedResult);
     } catch (error) {
-      console.error(error);
+      console.error(
+        "error while calling gemini",
+        error.response?.data?.error?.message,
+      );
 
       if (error.response?.status === 401 || error.response?.status === 403) {
         setUser(null);
