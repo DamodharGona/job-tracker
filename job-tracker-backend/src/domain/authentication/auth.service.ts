@@ -109,9 +109,25 @@ export function AuthService() {
     };
   };
 
+  const verifySessionService = async (userId: string) => {
+    const user = await getUserById(userId);
+    if (!user) {
+      throw AppErrors.notFound("user does not exist", "USER_NOT_FOUND");
+    }
+    return {
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        hasGeminiApiKey: user.geminiApiKey !== null,
+      },
+    };
+  };
+
   return {
     registerUserService,
     loginUserService,
     updateGeminiApiKeyService,
+    verifySessionService,
   };
 }

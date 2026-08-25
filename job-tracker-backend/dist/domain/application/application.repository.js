@@ -146,7 +146,7 @@ export function ApplicationRepository() {
             prisma.jobApplication.count({
                 where: {
                     userId,
-                    stage: "interview",
+                    stage: "Interview",
                     status: {
                         in: ["pending"],
                     },
@@ -155,7 +155,7 @@ export function ApplicationRepository() {
             prisma.jobApplication.count({
                 where: {
                     userId,
-                    stage: "interview",
+                    stage: "Interview",
                     status: {
                         in: ["shortlisted"],
                     },
@@ -164,7 +164,7 @@ export function ApplicationRepository() {
             prisma.jobApplication.count({
                 where: {
                     userId,
-                    stage: "interview",
+                    stage: "Interview",
                     status: {
                         in: ["completed"],
                     },
@@ -173,7 +173,7 @@ export function ApplicationRepository() {
             prisma.jobApplication.count({
                 where: {
                     userId,
-                    stage: "interview",
+                    stage: "Interview",
                     status: {
                         in: ["rejected"],
                     },
@@ -192,7 +192,7 @@ export function ApplicationRepository() {
             prisma.jobApplication.count({
                 where: {
                     userId,
-                    stage: "assignment",
+                    stage: "Assignment",
                     status: {
                         in: ["pending"],
                     },
@@ -201,7 +201,7 @@ export function ApplicationRepository() {
             prisma.jobApplication.count({
                 where: {
                     userId,
-                    stage: "assignment",
+                    stage: "Assignment",
                     status: {
                         in: ["shortlisted"],
                     },
@@ -210,7 +210,7 @@ export function ApplicationRepository() {
             prisma.jobApplication.count({
                 where: {
                     userId,
-                    stage: "assignment",
+                    stage: "Assignment",
                     status: {
                         in: ["completed"],
                     },
@@ -219,7 +219,7 @@ export function ApplicationRepository() {
             prisma.jobApplication.count({
                 where: {
                     userId,
-                    stage: "assignment",
+                    stage: "Assignment",
                     status: {
                         in: ["rejected"],
                     },
@@ -238,7 +238,7 @@ export function ApplicationRepository() {
             prisma.jobApplication.count({
                 where: {
                     userId,
-                    stage: "test",
+                    stage: "Test",
                     status: {
                         in: ["pending"],
                     },
@@ -247,7 +247,7 @@ export function ApplicationRepository() {
             prisma.jobApplication.count({
                 where: {
                     userId,
-                    stage: "test",
+                    stage: "Test",
                     status: {
                         in: ["shortlisted"],
                     },
@@ -256,7 +256,7 @@ export function ApplicationRepository() {
             prisma.jobApplication.count({
                 where: {
                     userId,
-                    stage: "test",
+                    stage: "Test",
                     status: {
                         in: ["completed"],
                     },
@@ -265,7 +265,7 @@ export function ApplicationRepository() {
             prisma.jobApplication.count({
                 where: {
                     userId,
-                    stage: "test",
+                    stage: "Test",
                     status: {
                         in: ["rejected"],
                     },
