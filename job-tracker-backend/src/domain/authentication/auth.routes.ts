@@ -18,7 +18,7 @@ const router: Router = express.Router();
 
 const isProduction = process.env.NODE_ENV === "production";
 
-const { registerUserService, loginUserService, updateGeminiApiKeyService } = AuthService();
+const { registerUserService, loginUserService, updateGeminiApiKeyService, verifySessionService } = AuthService();
 
 const updateGeminiApiKey = async (
   req: Request,
@@ -28,6 +28,16 @@ const updateGeminiApiKey = async (
   const userId = payload.userId;
   const { geminiApiKey } = req.body;
   const result = await updateGeminiApiKeyService(userId, geminiApiKey);
+  res.status(200).json(result);
+};
+
+const getCurrentUser = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  const payload = req.user as { userId: string; email: string };
+  const userId = payload.userId;
+  const result = await verifySessionService(userId);
   res.status(200).json(result);
 };
 
@@ -214,5 +224,7 @@ router.patch(
   validateRequest(updateGeminiApiKeyRequest),
   updateGeminiApiKey,
 );
+
+router.get("/me", authMiddleWare, getCurrentUser);
 
 export default router;

@@ -48,3 +48,16 @@ export const registerUser = async ({ name, email, password }) => {
     throw err;
   }
 };
+
+export const verifyAuth = async () => {
+  try {
+    const res = await axios.get(
+      `${API_BASE_URL}/auth/me`,
+      { withCredentials: true }
+    );
+    return res.data;
+  } catch (err) {
+    console.error("Verify session failed:", err);
+    throw err;
+  }
+};

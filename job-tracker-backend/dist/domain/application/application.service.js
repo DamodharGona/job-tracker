@@ -112,6 +112,7 @@ export function ApplicationService() {
         const interviews = await getInterviewMetrics(userId);
         const tests = await getTestMetrics(userId);
         const assignments = await getAssignmentMetrics(userId);
+        console.log("===metrics===:", interviews, tests, assignments);
         return [
             {
                 test: {

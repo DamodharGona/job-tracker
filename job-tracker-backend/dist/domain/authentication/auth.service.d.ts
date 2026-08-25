@@ -11,5 +11,13 @@ export declare function AuthService(): {
             hasGeminiApiKey: boolean;
         };
     }>;
+    verifySessionService: (userId: string) => Promise<{
+        user: {
+            id: string;
+            name: string;
+            email: string;
+            hasGeminiApiKey: boolean;
+        };
+    }>;
 };
 //# sourceMappingURL=auth.service.d.ts.map
