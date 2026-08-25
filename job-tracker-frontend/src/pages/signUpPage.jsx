@@ -16,7 +16,7 @@ function SignUpPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm();
 
   const onSubmit = async (data) => {
@@ -85,7 +85,8 @@ function SignUpPage() {
                   })}
                   type="text"
                   autoComplete="text"
-                  className="block w-full pl-10 pr-10 py-2.5 border border-neutral-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-neutral-900 dark:text-zinc-100 placeholder-neutral-400 dark:placeholder-zinc-500 rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-zinc-350 focus:border-neutral-900 dark:focus:border-zinc-350 text-sm transition-all"
+                  disabled={isSubmitting}
+                  className="block w-full pl-10 pr-10 py-2.5 border border-neutral-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-neutral-900 dark:text-zinc-100 placeholder-neutral-400 dark:placeholder-zinc-550 rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-zinc-350 focus:border-neutral-900 dark:focus:border-zinc-350 text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="Rahul kumar"
                 />
               </div>
@@ -117,7 +118,8 @@ function SignUpPage() {
                   })}
                   type="email"
                   autoComplete="email"
-                  className="block w-full pl-10 pr-3 py-2.5 border border-neutral-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-neutral-900 dark:text-zinc-100 placeholder-neutral-400 dark:placeholder-zinc-500 rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-zinc-350 focus:border-neutral-900 dark:focus:border-zinc-350 text-sm transition-all"
+                  disabled={isSubmitting}
+                  className="block w-full pl-10 pr-3 py-2.5 border border-neutral-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-neutral-900 dark:text-zinc-100 placeholder-neutral-400 dark:placeholder-zinc-500 rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-zinc-350 focus:border-neutral-900 dark:focus:border-zinc-350 text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="name@example.com"
                 />
               </div>
@@ -152,13 +154,15 @@ function SignUpPage() {
                   })}
                   type={showPassword ? "text" : "password"}
                   autoComplete="new-password"
-                  className="block w-full pl-10 pr-10 py-2.5 border border-neutral-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-neutral-900 dark:text-zinc-100 placeholder-neutral-400 dark:placeholder-zinc-550 rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-zinc-350 focus:border-neutral-900 dark:focus:border-zinc-350 text-sm transition-all"
+                  disabled={isSubmitting}
+                  className="block w-full pl-10 pr-10 py-2.5 border border-neutral-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-neutral-900 dark:text-zinc-100 placeholder-neutral-400 dark:placeholder-zinc-555 rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-zinc-350 focus:border-neutral-900 dark:focus:border-zinc-350 text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="••••••••"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-neutral-400 dark:text-zinc-500 hover:text-neutral-600 dark:hover:text-zinc-300 transition-colors"
+                  disabled={isSubmitting}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-neutral-400 dark:text-zinc-550 hover:text-neutral-600 dark:hover:text-zinc-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {showPassword ? (
                     <FiEyeOff className="h-5 w-5" />
@@ -179,7 +183,8 @@ function SignUpPage() {
               id="agree-terms"
               {...register("agree-terms", { required: "agree to the terms" })}
               type="checkbox"
-              className="h-4 w-4 text-neutral-900 dark:text-zinc-100 border-neutral-300 dark:border-zinc-700 rounded focus:ring-neutral-900 dark:focus:ring-zinc-350 accent-neutral-900 dark:accent-zinc-100"
+              disabled={isSubmitting}
+              className="h-4 w-4 text-neutral-900 dark:text-zinc-100 border-neutral-300 dark:border-zinc-700 rounded focus:ring-neutral-900 dark:focus:ring-zinc-350 accent-neutral-900 dark:accent-zinc-100 disabled:opacity-50 disabled:cursor-not-allowed"
             />
             <label
               htmlFor="agree-terms"
@@ -202,13 +207,25 @@ function SignUpPage() {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2.5 px-4 border border-transparent text-sm font-semibold rounded-md text-white dark:text-zinc-900 bg-neutral-900 hover:bg-neutral-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-900 dark:focus:ring-zinc-300 transition-colors cursor-pointer dark:focus:ring-zinc-100
-    dark:focus:ring-offset-zinc-950"
+              disabled={isSubmitting}
+              className={`group relative w-full flex justify-center items-center py-2.5 px-4 border border-transparent text-sm font-semibold rounded-md text-white dark:text-zinc-900 bg-neutral-900 hover:bg-neutral-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-900 dark:focus:ring-zinc-100 dark:focus:ring-offset-zinc-950 transition-colors ${isSubmitting ? "opacity-75 cursor-not-allowed" : "cursor-pointer"}`}
             >
-              Sign Up
-              <span className="absolute right-0 inset-y-0 flex items-center pr-3">
-                <FiArrowRight className="h-5 w-5 text-neutral-400 dark:text-zinc-900 group-hover:translate-x-1 transition-transform" />
-              </span>
+              {isSubmitting ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-current" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  </svg>
+                  Signing Up...
+                </>
+              ) : (
+                <>
+                  Sign Up
+                  <span className="absolute right-0 inset-y-0 flex items-center pr-3">
+                    <FiArrowRight className="h-5 w-5 text-neutral-400 dark:text-zinc-900 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                </>
+              )}
             </button>
           </div>
         </form>
@@ -219,7 +236,8 @@ function SignUpPage() {
             onClick={() => {
               navigate("/login");
             }}
-            className="text-sm font-medium text-neutral-600 dark:text-zinc-400 hover:text-neutral-900 dark:hover:text-zinc-200 transition-colors focus:outline-none underline cursor-pointer"
+            disabled={isSubmitting}
+            className="text-sm font-medium text-neutral-600 dark:text-zinc-400 hover:text-neutral-900 dark:hover:text-zinc-200 transition-colors focus:outline-none underline cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Already have an account? Sign In
           </button>

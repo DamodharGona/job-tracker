@@ -9,6 +9,13 @@ import { toast } from "react-toastify";
 import { Accordion } from "../components/ui/accordion";
 import { BulletPointAccordion } from "../components/app/bulletPointAccordion";
 
+function sanitizeAdvisoryNote(note) {
+  return note
+    .replace(/match score:?\s*\d{1,3}(\/100)?/gi, "")
+    .replace(/\b\d{1,2}\s+of\s+\d{1,2}\b.*?matched/gi, "")
+    .trim();
+}
+
 export function ResumeMatchPage() {
   const navigate = useNavigate();
   const { setUser, setIsAuthenticated } = useContext(AuthContext);
@@ -266,7 +273,7 @@ export function ResumeMatchPage() {
               </h2>
 
               <div className="rounded-md border border-neutral-300 dark:border-zinc-800 p-3 bg-white dark:bg-zinc-900 text-neutral-700 dark:text-zinc-300 transition-colors duration-200">
-                <p>{geminiResponse.advisory_note}</p>
+                <p>{sanitizeAdvisoryNote(geminiResponse.advisory_note)}</p>
               </div>
             </section>
           </div>

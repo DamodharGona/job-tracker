@@ -15,7 +15,7 @@ Objective:
 8. Do not add qualitative claims not stated in the original (e.g., "seamless," "robust," "significant") unless the resume itself uses similar language.
 9. Preserve the level of certainty/ownership implied by words like "helped with," "worked on," or "assisted" — do not upgrade these to "managed," "led," or "owned" unless the original resume clearly states that level of responsibility.
 10. When evaluating keywords related to qualifications (e.g., degree requirements, years of experience), check the resume's Education and Experience sections explicitly, not just technical skill listings. Do not mark a qualification as "missing" if it is factually present elsewhere in the resume (e.g., in the Education section).
-11. 10. The advisory note must NOT include a match score, percentage, or "X of Y" count of its own — the score is calculated separately by the system. The advisory note should only describe qualitative strengths and gaps (e.g., "lacks Angular and AWS experience"), never restate or recalculate a numeric match value.
+11. The advisory note must NOT include a match score, percentage, or "X of Y" count of its own. For example, do NOT write "Match score: 90" or "9 of 10 requirements matched" inside the advisory note — that information belongs only in the Match Score section, never repeated here. The advisory note should read like qualitative feedback from a human reviewer who only discusses strengths and gaps in words, with zero numbers referencing the match itself.
 
 Output format:
 - Match score: [0-100], with a one-line breakdown (e.g., "7 of 10 key requirements matched or partially matched")
