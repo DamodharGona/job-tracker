@@ -12,14 +12,6 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import { toast } from "react-toastify";
 import { DashboardCard } from "../components/app/dashboardCard";
 
-function FullScreenLoader() {
-  return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/30 backdrop-blur-sm">
-      <div className="h-10 w-10 animate-spin rounded-full border-4 border-white/40 border-t-white" />
-    </div>
-  );
-}
-
 function SmallTopLoader() {
   return (
     <div className="absolute top-0 left-0 h-1 w-full overflow-hidden bg-gray-200">
@@ -194,8 +186,45 @@ export function Dashboard() {
           Dashboard
         </p>
       </div>
+
       {isLoading ? (
-        <FullScreenLoader />
+        <div className="animate-pulse">
+          {/* Table skeleton */}
+          <div className="rounded-md border border-neutral-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5">
+            <div className="grid grid-cols-5 gap-4 mb-4">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="h-4 bg-neutral-200 dark:bg-zinc-800 rounded"
+                />
+              ))}
+            </div>
+            {Array.from({ length: 3 }).map((_, row) => (
+              <div key={row} className="grid grid-cols-5 gap-4 mb-3">
+                {Array.from({ length: 5 }).map((_, col) => (
+                  <div
+                    key={col}
+                    className="h-5 bg-neutral-100 dark:bg-zinc-800/60 rounded"
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
+
+          {/* Stat cards skeleton */}
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div
+                key={i}
+                className="rounded-md border border-neutral-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6"
+              >
+                <div className="h-4 w-24 bg-neutral-200 dark:bg-zinc-800 rounded mb-4" />
+                <div className="h-8 w-16 bg-neutral-300 dark:bg-zinc-700 rounded mb-2" />
+                <div className="h-3 w-32 bg-neutral-100 dark:bg-zinc-800/60 rounded" />
+              </div>
+            ))}
+          </div>
+        </div>
       ) : isError ? (
         <div className="flex items-center justify-center py-20">
           <p className="text-red-500">Something went wrong...</p>

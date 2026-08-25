@@ -17,14 +17,6 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDebounce } from "use-debounce";
 
-function FullScreenLoader() {
-  return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/30 backdrop-blur-sm">
-      <div className="h-10 w-10 animate-spin rounded-full border-4 border-white/40 border-t-white" />
-    </div>
-  );
-}
-
 function SmallTopLoader() {
   return (
     <div className="absolute top-0 left-0 h-1 w-full overflow-hidden bg-gray-200">
@@ -248,7 +240,40 @@ function JobApplication() {
           </button>
         </div>
         {isLoading ? (
-          <FullScreenLoader />
+          <div className="flex flex-col p-3 sm:p-5 lg:p-10 animate-pulse">
+            <div className="bg-white dark:bg-zinc-900 shadow-sm rounded-md overflow-hidden">
+              {/* Filter tabs + search bar skeleton */}
+              <div className="p-3 flex flex-col gap-y-2 sm:flex-row sm:justify-between">
+                <div className="h-9 w-72 bg-neutral-200 dark:bg-zinc-800 rounded-md" />
+                <div className="h-9 w-full sm:w-64 bg-neutral-200 dark:bg-zinc-800 rounded-md" />
+              </div>
+
+              {/* Table header skeleton */}
+              <div className="hidden lg:grid grid-cols-9 gap-4 px-4 py-3 border-t border-neutral-100 dark:border-zinc-800">
+                {Array.from({ length: 9 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="h-4 bg-neutral-200 dark:bg-zinc-800 rounded"
+                  />
+                ))}
+              </div>
+
+              {/* Table rows skeleton */}
+              {Array.from({ length: 4 }).map((_, row) => (
+                <div
+                  key={row}
+                  className="grid grid-cols-1 lg:grid-cols-9 gap-4 px-4 py-4 border-t border-neutral-100 dark:border-zinc-800"
+                >
+                  {Array.from({ length: 9 }).map((_, col) => (
+                    <div
+                      key={col}
+                      className="h-4 bg-neutral-100 dark:bg-zinc-800/60 rounded"
+                    />
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
         ) : isError ? (
           <div className="flex items-center justify-center py-20">
             <p className="text-red-500">Something went wrong...</p>
