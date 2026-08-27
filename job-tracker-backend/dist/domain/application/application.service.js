@@ -112,7 +112,6 @@ export function ApplicationService() {
         const interviews = await getInterviewMetrics(userId);
         const tests = await getTestMetrics(userId);
         const assignments = await getAssignmentMetrics(userId);
-        console.log("===metrics===:", interviews, tests, assignments);
         return [
             {
                 test: {
@@ -191,6 +190,10 @@ export function ApplicationService() {
                                 required: ["keyword", "importance_rank", "match_status"],
                             },
                         },
+                        jd_specificity: {
+                            type: Type.STRING,
+                            description: "Assess whether the job description is 'specific' or 'vague' based on its tech requirements.",
+                        },
                         tailored_bullets: {
                             type: Type.ARRAY,
                             items: {
@@ -206,8 +209,8 @@ export function ApplicationService() {
                             type: Type.STRING,
                         },
                     },
-                    required: ["keywords", "tailored_bullets", "advisory_note"],
-                    propertyOrdering: ["keywords", "tailored_bullets", "advisory_note"],
+                    required: ["keywords", "tailored_bullets", "advisory_note", "jd_specificity"],
+                    propertyOrdering: ["keywords", "tailored_bullets", "advisory_note", "jd_specificity"],
                 },
             },
         });
