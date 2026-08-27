@@ -274,7 +274,8 @@ export function ApplicationService() {
             },
             jd_specificity: {
               type: Type.STRING,
-              description: "Assess whether the job description is 'specific' or 'vague' based on its tech requirements.",
+              description:
+                "Assess whether the job description is 'specific' or 'vague' based on its tech requirements.",
             },
             tailored_bullets: {
               type: Type.ARRAY,
@@ -291,8 +292,18 @@ export function ApplicationService() {
               type: Type.STRING,
             },
           },
-          required: ["keywords", "tailored_bullets", "advisory_note", "jd_specificity"],
-          propertyOrdering: ["keywords", "tailored_bullets", "advisory_note", "jd_specificity"],
+          required: [
+            "keywords",
+            "tailored_bullets",
+            "advisory_note",
+            "jd_specificity",
+          ],
+          propertyOrdering: [
+            "keywords",
+            "tailored_bullets",
+            "advisory_note",
+            "jd_specificity",
+          ],
         },
       },
     });
@@ -320,6 +331,7 @@ export function ApplicationService() {
       keywords: parsedResponse.keywords,
       tailored_bullets: parsedResponse.tailored_bullets,
       advisory_note: parsedResponse.advisory_note,
+      jd_specificity: parsedResponse.jd_specificity,
     };
   };
 
