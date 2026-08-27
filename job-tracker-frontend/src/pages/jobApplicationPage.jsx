@@ -159,6 +159,21 @@ function JobApplication() {
     }
   }, [error, navigate, setUser, setIsAuthenticated]);
 
+  const [loadingTooLong, setLoadingTooLong] = useState(false);
+
+  useEffect(() => {
+    let timer;
+    if (isLoading) {
+      timer = setTimeout(() => {
+        setLoadingTooLong(true);
+      }, 3000);
+    }
+    return () => {
+      clearTimeout(timer);
+      setLoadingTooLong(false);
+    };
+  }, [isLoading]);
+
   const handleFilterChange = (index) => {
     setSelectedFilterIndex(index);
   };
@@ -240,8 +255,15 @@ function JobApplication() {
           </button>
         </div>
         {isLoading ? (
-          <div className="flex flex-col p-3 sm:p-5 lg:p-10 animate-pulse">
-            <div className="bg-white dark:bg-zinc-900 shadow-sm rounded-md overflow-hidden">
+          <div className="flex flex-col p-3 sm:p-5 lg:p-10">
+            {loadingTooLong && (
+              <div className="mb-4 text-center">
+                <p className="text-sm text-neutral-500">
+                  Waking up the server — this can take up to a minute on first load. Thanks for your patience!
+                </p>
+              </div>
+            )}
+            <div className="animate-pulse bg-white dark:bg-zinc-900 shadow-sm rounded-md overflow-hidden">
               {/* Filter tabs + search bar skeleton */}
               <div className="p-3 flex flex-col gap-y-2 sm:flex-row sm:justify-between">
                 <div className="h-9 w-72 bg-neutral-200 dark:bg-zinc-800 rounded-md" />

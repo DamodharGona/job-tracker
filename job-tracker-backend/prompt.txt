@@ -8,17 +8,23 @@ Objective:
 1. Extract the high-value keywords/skills from the JOB DESCRIPTION that this resume should emphasize. Sort by importance (descending).
 2. For each extracted keyword, indicate whether it is clearly present in the resume, partially present (related/adjacent experience), or missing entirely.
 3. Calculate a match score (0-100) based ONLY on the ratio of JD keywords/requirements that are clearly or partially present in the resume. Do not factor in general impressions, resume quality, or writing style — this is strictly a keyword/requirement coverage score, not an overall candidate quality score. Show your reasoning: state how many keywords were matched vs. total extracted, and how that maps to the score.
-4. Rewrite 5-6 bullet points FROM THE RESUME ONLY — using only projects, responsibilities, and outcomes the candidate actually describes. Reframe language/emphasis to align with the JD's priorities, but do not add skills, tools, or achievements not present in the original resume.
-5. Do NOT invent metrics, percentages, or outcomes. If the resume does not state a measurable result, do not add one — describe the action/impact qualitatively instead (e.g., "improved reliability" not "improved reliability by 45%").
-6. If a bullet point cannot be honestly supported by the resume content, do not include it.
-7. Preserve the original verbs and scope from the resume exactly where possible (e.g., keep "built," "migrated," "updated," "deployed" — do not upgrade to "architected," "scaled," "refactored," "spearheaded," etc.) unless the resume explicitly describes that level of ownership.
-8. Do not add qualitative claims not stated in the original (e.g., "seamless," "robust," "significant") unless the resume itself uses similar language.
-9. Preserve the level of certainty/ownership implied by words like "helped with," "worked on," or "assisted" — do not upgrade these to "managed," "led," or "owned" unless the original resume clearly states that level of responsibility.
-10. When evaluating keywords related to qualifications (e.g., degree requirements, years of experience), check the resume's Education and Experience sections explicitly, not just technical skill listings. Do not mark a qualification as "missing" if it is factually present elsewhere in the resume (e.g., in the Education section).
-11. The advisory note must NOT include a match score, percentage, or "X of Y" count of its own. For example, do NOT write "Match score: 90" or "9 of 10 requirements matched" inside the advisory note — that information belongs only in the Match Score section, never repeated here. The advisory note should read like qualitative feedback from a human reviewer who only discusses strengths and gaps in words, with zero numbers referencing the match itself.
+4. Assess the specificity of the job description itself. If the JD is vague, generic, or provides fewer than ~5 concrete technical requirements (e.g., only phrases like "computer skills," "good communication," with no named technologies, frameworks, or measurable expectations), set a flag noting this. A high match score against a vague JD does not indicate strong genuine fit — it indicates the JD gave little to differentiate against.
+5. Rewrite 5-6 bullet points FROM THE RESUME ONLY — using only projects, responsibilities, and outcomes the candidate actually describes. Reframe language/emphasis to align with the JD's priorities, but do not add skills, tools, or achievements not present in the original resume.
+6. Do NOT invent metrics, percentages, or outcomes. If the resume does not state a measurable result, do not add one — describe the action/impact qualitatively instead (e.g., "improved reliability" not "improved reliability by 45%").
+7. If a bullet point cannot be honestly supported by the resume content, do not include it.
+8. Preserve the original verbs and scope from the resume exactly where possible (e.g., keep "built," "migrated," "updated," "deployed" — do not upgrade to "architected," "scaled," "refactored," "spearheaded," etc.) unless the resume explicitly describes that level of ownership.
+9. Do not add qualitative claims not stated in the original (e.g., "seamless," "robust," "significant") unless the resume itself uses similar language.
+10. Preserve the level of certainty/ownership implied by words like "helped with," "worked on," or "assisted" — do not upgrade these to "managed," "led," or "owned" unless the original resume clearly states that level of responsibility.
+11. When evaluating keywords related to qualifications (e.g., degree requirements, years of experience), check the resume's Education and Experience sections explicitly, not just technical skill listings. Do not mark a qualification as "missing" if it is factually present elsewhere in the resume (e.g., in the Education section).
+12. The advisory note must NOT include a match score, percentage, or "X of Y" count of its own. For example, do NOT write "Match score: 90" or "9 of 10 requirements matched" inside the advisory note — that information belongs only in the Match Score section, never repeated here. The advisory note should read like qualitative feedback from a human reviewer who only discusses strengths and gaps in words, with zero numbers referencing the match itself.
+
+
+Additional instruction: If the job description is vague, generic, or lacks specific technical requirements (e.g., under ~50 words of actual requirements, or requirements like "computer skills" with no named technologies), note this explicitly in the advisory note — e.g., "This job description is too vague to assess a meaningful match; the actual requirements for this role may be more specific than what's listed." Do not present a high match score as strong confidence when the JD itself provides insufficient detail to judge fit.
+
 
 Output format:
-- Match score: [0-100], with a one-line breakdown (e.g., "7 of 10 key requirements matched or partially matched")
+- Match score: [0-100], with a one-line breakdown
+- JD specificity: [specific / vague] — if vague, a one-line note on why the score should be read with caution
 - Keywords: [ranked list], each marked as Present / Partial / Missing
 - Tailored bullet points: [5-6 bullets, each grounded in a specific resume line]
 - For each bullet, briefly note which original resume line it's based on.

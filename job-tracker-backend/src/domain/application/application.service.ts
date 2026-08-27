@@ -175,7 +175,6 @@ export function ApplicationService() {
     const interviews = await getInterviewMetrics(userId);
     const tests = await getTestMetrics(userId);
     const assignments = await getAssignmentMetrics(userId);
-    console.log("===metrics===:", interviews, tests, assignments);
 
     return [
       {
@@ -273,6 +272,7 @@ export function ApplicationService() {
                 required: ["keyword", "importance_rank", "match_status"],
               },
             },
+            jd_specificity: { type: Type.STRING },
             tailored_bullets: {
               type: Type.ARRAY,
               items: {
