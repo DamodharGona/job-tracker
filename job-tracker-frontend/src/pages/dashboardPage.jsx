@@ -6,7 +6,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useContext, useEffect, useMemo } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { IoMdMenu } from "react-icons/io";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -173,6 +173,21 @@ export function Dashboard() {
     }
   }, [error, navigate, setUser, setIsAuthenticated]);
 
+  const [loadingTooLong, setLoadingTooLong] = useState(false);
+
+  useEffect(() => {
+    let timer;
+    if (isLoading) {
+      timer = setTimeout(() => {
+        setLoadingTooLong(true);
+      }, 3000);
+    }
+    return () => {
+      clearTimeout(timer);
+      setLoadingTooLong(false);
+    };
+  }, [isLoading]);
+
   return (
     <div className="flex flex-col xs text-xs sm:text-sm h-full bg-neutral-50 dark:bg-zinc-950 text-neutral-900 dark:text-zinc-100 transition-colors duration-200">
       <div className="py-2 px-2 items-center flex justify-between shadow-[0_1px_7px_-5px_rgba(0,0,0,0.3)] bg-white dark:bg-zinc-900 border-b border-transparent dark:border-zinc-800 min-h-20 transition-colors duration-200">
@@ -188,9 +203,16 @@ export function Dashboard() {
       </div>
 
       {isLoading ? (
-        <div className="animate-pulse">
+        <div className="p-4 sm:p-5">
+          {loadingTooLong && (
+            <div className="mb-4 text-center">
+              <p className="text-sm text-neutral-500">
+                Waking up the server — this can take up to a minute on first load. Thanks for your patience!
+              </p>
+            </div>
+          )}
           {/* Table skeleton */}
-          <div className="rounded-md border border-neutral-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5">
+          <div className="animate-pulse rounded-md border border-neutral-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5">
             <div className="grid grid-cols-5 gap-4 mb-4">
               {Array.from({ length: 5 }).map((_, i) => (
                 <div

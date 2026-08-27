@@ -97,9 +97,9 @@ function HomePage() {
           <img
             src={logo}
             alt="Company Logo"
-            className="max-w-20 mt-5 dark:invert"
+            className="w-auto mt-5 h-18 dark:invert"
           />
-          <div className="flex flex-col gap-y-2 mx-5">
+          <div className="flex flex-col gap-y-2 mx-5 mt-4">
             <Link to="dashboard">
               <span className="flex gap-x-2 items-center text-sm uppercase tracking-wider cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 rounded-md hover:font-semibold pl-2 py-1.5 transition-colors">
                 <FiHome />

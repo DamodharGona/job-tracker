@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 
@@ -19,6 +19,21 @@ function LoginPage() {
   } = useForm();
 
   const navigate = useNavigate();
+
+  const [loadingTooLong, setLoadingTooLong] = useState(false);
+
+  useEffect(() => {
+    let timer;
+    if (isSubmitting) {
+      timer = setTimeout(() => {
+        setLoadingTooLong(true);
+      }, 3000);
+    }
+    return () => {
+      clearTimeout(timer);
+      setLoadingTooLong(false);
+    };
+  }, [isSubmitting]);
 
   const onSubmit = async (data) => {
     try {
@@ -178,6 +193,11 @@ function LoginPage() {
                 </>
               )}
             </button>
+            {isSubmitting && loadingTooLong && (
+              <p className="text-xs text-neutral-500 text-center mt-3 animate-fade-in">
+                Waking up the server — this can take up to a minute on first load. Thanks for your patience!
+              </p>
+            )}
           </div>
         </form>
 

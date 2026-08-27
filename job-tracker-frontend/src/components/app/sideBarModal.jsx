@@ -37,7 +37,11 @@ function SideBarModal({
     <div className="fixed inset-y-0 left-0 z-50 flex justify-start lg:hidden">
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity" />
       <div className="z-10 relative h-screen min-w-40 md:min-w-50 bg-white dark:bg-zinc-900 border-r border-transparent dark:border-zinc-800 text-neutral-900 dark:text-zinc-100 flex flex-col items-start transition-colors duration-200">
-        <img src={logo} alt="Company Logo" className="max-w-20 mt-5" />
+        <img
+          src={logo}
+          alt="Company Logo"
+          className="w-auto mt-5 h-18 dark:invert"
+        />
         <button
           onClick={handleClose}
           className="absolute top-0 right-0 pr-2 pt-2 text-neutral-500 dark:text-zinc-400 hover:text-neutral-800 dark:hover:text-zinc-100 transition-colors"

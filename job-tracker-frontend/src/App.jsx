@@ -12,7 +12,7 @@ import JobApplication from "./pages/jobApplicationPage";
 import { ResumeMatchPage } from "./pages/resumeMatchPage";
 import { verifyAuth } from "./repository/authApis";
 
-function FullScreenLoader() {
+function FullScreenLoader({ loadingTooLong }) {
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-zinc-950 flex flex-col items-center justify-center font-sans text-neutral-900 dark:text-zinc-100 transition-colors duration-200">
       <div className="flex flex-col items-center gap-3">
@@ -21,6 +21,11 @@ function FullScreenLoader() {
           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
         </svg>
         <span className="text-sm font-medium tracking-wide text-neutral-500 dark:text-zinc-400">Loading JobTracker...</span>
+        {loadingTooLong && (
+          <p className="text-sm text-neutral-500 max-w-xs text-center mt-2 px-4">
+            Waking up the server — this can take up to a minute on first load. Thanks for your patience!
+          </p>
+        )}
       </div>
     </div>
   );
@@ -35,6 +40,7 @@ function App() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(null);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+  const [loadingTooLong, setLoadingTooLong] = useState(false);
 
   const [hasApiKey, setHasApiKey] = useState(() => {
     const val = localStorage.getItem("hasApiKey");
@@ -45,6 +51,19 @@ function App() {
       return false;
     }
   });
+
+  useEffect(() => {
+    let timer;
+    if (isCheckingAuth) {
+      timer = setTimeout(() => {
+        setLoadingTooLong(true);
+      }, 3000);
+    }
+    return () => {
+      clearTimeout(timer);
+      setLoadingTooLong(false);
+    };
+  }, [isCheckingAuth]);
 
   useEffect(() => {
     const verifySession = async () => {
@@ -76,7 +95,7 @@ function App() {
   }, []);
 
   if (isCheckingAuth) {
-    return <FullScreenLoader />;
+    return <FullScreenLoader loadingTooLong={loadingTooLong} />;
   }
 
   return (

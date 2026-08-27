@@ -24,6 +24,7 @@ export function ResumeMatchPage() {
     tailored_bullets: [],
     advisory_note: "",
   });
+  const [jobDescription, setJobDescription] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -31,6 +32,7 @@ export function ResumeMatchPage() {
     keywords: [],
     tailored_bullets: [],
     advisory_note: "",
+    jd_specificity: "",
   };
 
   const {
@@ -57,6 +59,7 @@ export function ResumeMatchPage() {
 
       formData.append("resume", data.resume[0]);
       formData.append("jobDescription", data.jobDescription);
+      setJobDescription(data.jobDescription);
 
       const response = await getJdKeyWordsMatcher(formData);
       const parsedResult =
@@ -171,9 +174,22 @@ export function ResumeMatchPage() {
           <div className="mt-6 flex flex-col gap-6 bg-neutral-50 dark:bg-zinc-950/50 border border-neutral-200 dark:border-zinc-800 rounded-lg p-4 sm:p-6 transition-colors duration-200">
             <section className="rounded-md border border-neutral-300 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5">
               <div className="flex items-center justify-between">
-                <h2 className="text-sm md:text-lg font-semibold text-neutral-800 dark:text-zinc-200">
-                  Match Score
-                </h2>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                  <h2 className="text-sm md:text-lg font-semibold text-neutral-800 dark:text-zinc-200">
+                    Match Score
+                  </h2>
+                  {geminiResponse.jd_specificity && (
+                    <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold border transition-colors duration-205 ${
+                      geminiResponse.jd_specificity.toLowerCase() === "specific"
+                        ? "bg-green-50 text-green-700 border-green-200 dark:bg-green-950/20 dark:text-green-400 dark:border-green-800/30"
+                        : "bg-yellow-50 text-yellow-700 border-yellow-200 dark:bg-yellow-950/20 dark:text-yellow-400 dark:border-yellow-900/30"
+                    }`}>
+                      {geminiResponse.jd_specificity.toLowerCase() === "specific"
+                        ? "Specific JD"
+                        : "Vague JD"}
+                    </span>
+                  )}
+                </div>
                 <span
                   className={`text-2xl font-bold ${
                     geminiResponse.matchScore >= 70
@@ -273,7 +289,11 @@ export function ResumeMatchPage() {
               </h2>
 
               <div className="rounded-md border border-neutral-300 dark:border-zinc-800 p-3 bg-white dark:bg-zinc-900 text-neutral-700 dark:text-zinc-300 transition-colors duration-200">
-                <p>{sanitizeAdvisoryNote(geminiResponse.advisory_note)}</p>
+                <p>
+                  {jobDescription.trim().split(/\s+/).length < 60
+                    ? `Note: This job description is quite brief, so this match assessment may be less reliable. ${sanitizeAdvisoryNote(geminiResponse.advisory_note)}`
+                    : sanitizeAdvisoryNote(geminiResponse.advisory_note)}
+                </p>
               </div>
             </section>
           </div>
