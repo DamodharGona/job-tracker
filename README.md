@@ -119,8 +119,13 @@ The frontend is a React application built with Vite, Tailwind CSS, and TanStack 
 * `PATCH /api/auth/gemini-key` — Upload and symmetrically encrypt the user's Gemini API key.
 
 ### Applications
-* `GET /api/applications` — Fetch active applications.
-* `POST /api/applications/jd-keyword-matcher` — Call Gemini matching model using uploaded resume and target job description.
+* `POST /api/applications` — Create a new job application record.
+* `GET /api/applications` — Fetch job applications (supports query filters for `status` and `searchText` search).
+* `GET /api/applications/dashboard` — Fetch applications stage counts and metrics for the dashboard view.
+* `GET /api/applications/:id` — Retrieve details for a specific application record.
+* `PATCH /api/applications/:id` — Update an existing application record.
+* `DELETE /api/applications/:id` — Delete a job application record.
+* `POST /api/applications/jd-keyword-matcher` — Upload a resume and evaluate matching details against a job description.
 
 ---
 
