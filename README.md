@@ -23,11 +23,13 @@ To get the entire application running locally, follow these guides for both the 
 The backend is built using Node.js (ESM), Express, TypeScript, Prisma, and PostgreSQL.
 
 #### Prerequisites
-* Node.js (v18+)
-* PostgreSQL running locally or in Docker
-* Python (with virtual env) if you want to run `markitdown` doc parsing locally
+
+- Node.js (v18+)
+- PostgreSQL running locally or in Docker
+- Python (with virtual env) if you want to run `markitdown` doc parsing locally
 
 #### Steps:
+
 1. Navigate into the backend directory:
    ```bash
    cd job-tracker-backend
@@ -67,6 +69,7 @@ The backend is built using Node.js (ESM), Express, TypeScript, Prisma, and Postg
 The frontend is a React application built with Vite, Tailwind CSS, and TanStack React Query.
 
 #### Steps:
+
 1. Navigate into the frontend directory:
    ```bash
    cd ../job-tracker-frontend
@@ -90,47 +93,50 @@ The frontend is a React application built with Vite, Tailwind CSS, and TanStack 
 ## 🎨 Key Features
 
 1. **Guest Landing Page**
-   * Polished dashboard previews.
-   * Seamless light and dark mode toggling.
-   * Direct paths to authentication forms.
+   - Polished dashboard previews.
+   - Seamless light and dark mode toggling.
+   - Direct paths to authentication forms.
 2. **Applications Tracker**
-   * View all active applications in a clean responsive table or list.
-   * Manage progress and stage states.
-   * Delayed-loading indicators handling cold/sleeping servers cleanly.
+   - View all active applications in a clean responsive table or list.
+   - Manage progress and stage states.
+   - Delayed-loading indicators handling cold/sleeping servers cleanly.
 3. **Resume Keyword Matcher**
-   * Tailor resumes for target JDs.
-   * Displays structural keyword matches, tailored bullet recommendations, and an advisory note.
-   * **JD Specificity Badge**: Highlights whether the job description is structural or vague directly beside the match score.
+   - Tailor resumes for target JDs.
+   - Displays specific keyword matches, tailored bullet recommendations, and an advisory note.
+   - **JD Specificity Badge**: Highlights whether the job description is specific or vague directly beside the match score.
+   - Built with explicit safeguards against LLM hallucination — see [profile README](https://github.com/DamodharGona) for details on the reliability testing behind this feature.
 4. **Interactive Dashboard**
-   * Visual conversion analytics showing success rate, active pipelines, and stage counts.
+   - Visual conversion analytics showing success rate, active pipelines, and stage counts.
 5. **Secure Gemini Key Encryption**
-   * Stores user-provided Gemini API keys encrypted symmetrically using `aes-256-gcm` (with backward compatibility for legacy `aes-256-cbc` keys).
-   * Fallback-free loading that validates keys on backend module start.
+   - Stores user-provided Gemini API keys encrypted symmetrically using `aes-256-gcm` (with backward compatibility for legacy `aes-256-cbc` keys).
+   - Fallback-free loading that validates keys on backend module start.
 
 ---
 
 ## 🔌 API Endpoints (Summary)
 
 ### Authentication
-* `POST /api/auth/register` — Create a new user profile.
-* `POST /api/auth/login` — Login user and issue httpOnly session cookie.
-* `POST /api/auth/logout` — Clear session cookies and client tokens.
-* `GET /api/auth/me` — Verify active cookie session and fetch current profile.
-* `PATCH /api/auth/gemini-key` — Upload and symmetrically encrypt the user's Gemini API key.
+
+- `POST /api/auth/register` — Create a new user profile.
+- `POST /api/auth/login` — Login user and issue httpOnly session cookie.
+- `POST /api/auth/logout` — Clear session cookies and client tokens.
+- `GET /api/auth/me` — Verify active cookie session and fetch current profile.
+- `PATCH /api/auth/gemini-key` — Upload and symmetrically encrypt the user's Gemini API key.
 
 ### Applications
-* `POST /api/applications` — Create a new job application record.
-* `GET /api/applications` — Fetch job applications (supports query filters for `status` and `searchText` search).
-* `GET /api/applications/dashboard` — Fetch applications stage counts and metrics for the dashboard view.
-* `GET /api/applications/:id` — Retrieve details for a specific application record.
-* `PATCH /api/applications/:id` — Update an existing application record.
-* `DELETE /api/applications/:id` — Delete a job application record.
-* `POST /api/applications/jd-keyword-matcher` — Upload a resume and evaluate matching details against a job description.
+
+- `POST /api/applications` — Create a new job application record.
+- `GET /api/applications` — Fetch job applications (supports query filters for `status` and `searchText` search).
+- `GET /api/applications/dashboard` — Fetch applications stage counts and metrics for the dashboard view.
+- `GET /api/applications/:id` — Retrieve details for a specific application record.
+- `PATCH /api/applications/:id` — Update an existing application record.
+- `DELETE /api/applications/:id` — Delete a job application record.
+- `POST /api/applications/jd-keyword-matcher` — Upload a resume and evaluate matching details against a job description.
 
 ---
 
 ## 🛠 Tech Stack
 
-* **Frontend**: React, Vite, Tailwind CSS, TanStack Query, React Hook Form, React Router, Lucide Icons.
-* **Backend**: Node.js, Express, TypeScript, Prisma ORM, PostgreSQL, JSON Web Tokens (JWT), Crypto (AES-256-gcm).
-* **AI Integration**: Google Gen AI SDK (`gemini-3.1-flash-lite`).
+- **Frontend**: React, Vite, Tailwind CSS, TanStack Query, React Hook Form, React Router, Lucide Icons.
+- **Backend**: Node.js, Express, TypeScript, Prisma ORM, PostgreSQL, JSON Web Tokens (JWT), Crypto (AES-256-gcm).
+- **AI Integration**: Google Gen AI SDK (`gemini-3.1-flash-lite`).
