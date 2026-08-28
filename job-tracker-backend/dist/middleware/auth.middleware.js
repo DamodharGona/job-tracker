@@ -2,8 +2,6 @@ import { verifyToken } from "../utils/jwt.js";
 import { AppErrors } from "../errors/app.errors.js";
 import jwt from "jsonwebtoken";
 export function authMiddleWare(request, response, next) {
-    console.log("cookies:", request.cookies);
-    console.log("token:", request.cookies?.token);
     const token = request.cookies?.token;
     if (!token) {
         throw AppErrors.unauthorized();

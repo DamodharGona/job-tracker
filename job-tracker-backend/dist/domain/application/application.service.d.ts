@@ -119,6 +119,7 @@ export declare function ApplicationService(): {
         keywords: any;
         tailored_bullets: any;
         advisory_note: any;
+        jd_specificity: any;
     }>;
 };
 //# sourceMappingURL=application.service.d.ts.map

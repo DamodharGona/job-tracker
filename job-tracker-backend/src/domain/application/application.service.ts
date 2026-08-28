@@ -101,10 +101,8 @@ export function ApplicationService() {
         applications: applications,
       };
     }
-    console.log("all if else failed");
     const result = await getApplications(userId, skip, limit);
     const totalPages = result.totalApplications / limit;
-    console.log("getAllApplications:", result);
     return {
       applications: result.applications,
       meta: {
@@ -234,6 +232,7 @@ export function ApplicationService() {
       try {
         geminiApiKey = decrypt(encryptedApiKey);
       } catch (err) {
+        console.error(`[ERROR] Failed to decrypt Gemini API key for user ${userId}:`, err);
         throw AppErrors.internal(
           "Failed to decrypt Gemini API key",
           "DECRYPTION_FAILED",
@@ -308,11 +307,7 @@ export function ApplicationService() {
       },
     });
 
-    console.log("gemini response:", response.text);
-
     const parsedResponse = JSON.parse(response.text!);
-
-    console.log("parsed response", parsedResponse);
 
     const matchedCount = parsedResponse.keywords.filter(
       (k: { match_status: string }) =>

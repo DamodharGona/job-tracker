@@ -58,10 +58,8 @@ export function ApplicationService() {
                 applications: applications,
             };
         }
-        console.log("all if else failed");
         const result = await getApplications(userId, skip, limit);
         const totalPages = result.totalApplications / limit;
-        console.log("getAllApplications:", result);
         return {
             applications: result.applications,
             meta: {
@@ -157,6 +155,7 @@ export function ApplicationService() {
                 geminiApiKey = decrypt(encryptedApiKey);
             }
             catch (err) {
+                console.error(`[ERROR] Failed to decrypt Gemini API key for user ${userId}:`, err);
                 throw AppErrors.internal("Failed to decrypt Gemini API key", "DECRYPTION_FAILED");
             }
         }
@@ -209,14 +208,22 @@ export function ApplicationService() {
                             type: Type.STRING,
                         },
                     },
-                    required: ["keywords", "tailored_bullets", "advisory_note", "jd_specificity"],
-                    propertyOrdering: ["keywords", "tailored_bullets", "advisory_note", "jd_specificity"],
+                    required: [
+                        "keywords",
+                        "tailored_bullets",
+                        "advisory_note",
+                        "jd_specificity",
+                    ],
+                    propertyOrdering: [
+                        "keywords",
+                        "tailored_bullets",
+                        "advisory_note",
+                        "jd_specificity",
+                    ],
                 },
             },
         });
-        console.log("gemini response:", response.text);
         const parsedResponse = JSON.parse(response.text);
-        console.log("parsed response", parsedResponse);
         const matchedCount = parsedResponse.keywords.filter((k) => k.match_status === "Present" || k.match_status === "Partial").length;
         const totalCount = parsedResponse.keywords.length;
         const matchScore = Math.round((matchedCount / totalCount) * 100);
@@ -227,6 +234,7 @@ export function ApplicationService() {
             keywords: parsedResponse.keywords,
             tailored_bullets: parsedResponse.tailored_bullets,
             advisory_note: parsedResponse.advisory_note,
+            jd_specificity: parsedResponse.jd_specificity,
         };
     };
     // const callGeminiService = async (userId: string, prompt: string) => {

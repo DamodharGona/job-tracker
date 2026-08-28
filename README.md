@@ -45,7 +45,7 @@ The backend is built using Node.js (ESM), Express, TypeScript, Prisma, and Postg
    ENCRYPTION_KEY="32-byte-hex-key-for-aes-256"
    GEMINI_API_KEY="optional-developer-fallback-gemini-key"
    ```
-   > **Note**: `ENCRYPTION_KEY` must be a cryptographically strong 32-byte hex string (e.g., `f3e5b328a9b2b2a6f2e20b3864da9ee19a12c8b820a324b1d62c93849ea263d9`) used for symmetric encryption of Gemini API keys.
+   > **Note**: `ENCRYPTION_KEY` must be a cryptographically strong 32-byte hex string. You can generate one in your terminal with: `openssl rand -hex 32`
 4. Run Prisma database migrations to set up the schemas:
    ```bash
    npx prisma migrate dev
@@ -90,7 +90,7 @@ The frontend is a React application built with Vite, Tailwind CSS, and TanStack 
 ## 🎨 Key Features
 
 1. **Guest Landing Page**
-   * Monochrome dashboard previews.
+   * Polished dashboard previews.
    * Seamless light and dark mode toggling.
    * Direct paths to authentication forms.
 2. **Applications Tracker**
@@ -104,7 +104,7 @@ The frontend is a React application built with Vite, Tailwind CSS, and TanStack 
 4. **Interactive Dashboard**
    * Visual conversion analytics showing success rate, active pipelines, and stage counts.
 5. **Secure Gemini Key Encryption**
-   * Stores user-provided Gemini API keys encrypted symmetrically using `aes-256-cbc`.
+   * Stores user-provided Gemini API keys encrypted symmetrically using `aes-256-gcm` (with backward compatibility for legacy `aes-256-cbc` keys).
    * Fallback-free loading that validates keys on backend module start.
 
 ---
@@ -132,5 +132,5 @@ The frontend is a React application built with Vite, Tailwind CSS, and TanStack 
 ## 🛠 Tech Stack
 
 * **Frontend**: React, Vite, Tailwind CSS, TanStack Query, React Hook Form, React Router, Lucide Icons.
-* **Backend**: Node.js, Express, TypeScript, Prisma ORM, PostgreSQL, JSON Web Tokens (JWT), Crypto (AES-256-cbc).
+* **Backend**: Node.js, Express, TypeScript, Prisma ORM, PostgreSQL, JSON Web Tokens (JWT), Crypto (AES-256-gcm).
 * **AI Integration**: Google Gen AI SDK (`gemini-3.1-flash-lite`).

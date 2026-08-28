@@ -14,6 +14,7 @@ const createJobApplication = async (req, res) => {
     const payload = req.user;
     const userId = payload.userId;
     const result = await createJobApplicationService(userId, req.body);
+    console.log(`[APPLICATIONS] User ${userId} created a new job application (ID: ${result.id})`);
     res.status(201).json(result);
 };
 const getAllJobApplications = async (req, res) => {
@@ -21,7 +22,6 @@ const getAllJobApplications = async (req, res) => {
     const { status, searchText, page, limit, whatFor } = query;
     const payload = req.user;
     const userId = payload.userId;
-    console.log("get all application router is called");
     const result = await getAllJobApplicationsService(userId, limit, page, status, searchText, whatFor);
     res.status(200).json(result);
 };
@@ -35,12 +35,14 @@ const updateJobApplication = async (req, res) => {
     const payload = req.user;
     const userId = payload.userId;
     const result = await updateJobApplicationService(req.params.id, userId, req.body);
+    console.log(`[APPLICATIONS] User ${userId} updated application ${req.params.id}`);
     res.status(200).json(result);
 };
 const deleteJobApplication = async (req, res) => {
     const payload = req.user;
     const userId = payload.userId;
     const result = await deleteJobApplicationService(req.params.id, userId);
+    console.log(`[APPLICATIONS] User ${userId} deleted application ${req.params.id}`);
     res.status(200).send(result);
 };
 const applicationsMetrics = async (req, res) => {
@@ -62,12 +64,11 @@ export async function jdKeyWordMatcher(req, res) {
         const payload = req.user;
         const userId = payload.userId;
         const markdown = await convertDocumentToMarkdown(file.path);
-        console.log("markdown file: ", markdown);
         const { jobDescription } = req.body;
         const filePath = path.join(process.cwd(), "prompt.txt");
         const prompt = await fs.readFile(filePath, "utf-8");
         const result = await callGeminiService(userId, prompt, markdown, jobDescription);
-        console.log("keyword response", result);
+        console.log(`[MATCH] User ${userId} triggered resume-JD matching analysis`);
         res.status(200).json({ result });
     }
     finally {

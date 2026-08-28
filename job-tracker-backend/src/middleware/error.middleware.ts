@@ -14,12 +14,12 @@ export function errorHandler(
         code: err.code,
       },
     });
-    console.log("is App error:", err.message, err.code);
+    console.error(`[ERROR] App Error: ${err.message} (Code: ${err.code})`);
     return;
   }
 
   if (err instanceof Error) {
-    console.log(err);
+    console.error("[ERROR] Unhandled Error:", err);
     res.status(500).json({
       error: {
         message: err.message,

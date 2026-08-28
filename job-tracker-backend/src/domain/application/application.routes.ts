@@ -36,6 +36,7 @@ const createJobApplication = async (
   const payload = req.user as { userId: string; email: string };
   const userId = payload.userId;
   const result = await createJobApplicationService(userId, req.body);
+  console.log(`[APPLICATIONS] User ${userId} created a new job application (ID: ${result.id})`);
   res.status(201).json(result);
 };
 
@@ -50,7 +51,7 @@ const getAllJobApplications = async (
   const payload = req.user as { userId: string; email: string };
   const userId = payload.userId;
 
-  console.log("get all application router is called");
+
   const result = await getAllJobApplicationsService(
     userId,
     limit,
@@ -87,6 +88,7 @@ const updateJobApplication = async (
     userId,
     req.body,
   );
+  console.log(`[APPLICATIONS] User ${userId} updated application ${req.params.id}`);
   res.status(200).json(result);
 };
 
@@ -100,6 +102,7 @@ const deleteJobApplication = async (
     req.params.id as string,
     userId,
   );
+  console.log(`[APPLICATIONS] User ${userId} deleted application ${req.params.id}`);
   res.status(200).send(result);
 };
 
@@ -133,8 +136,6 @@ export async function jdKeyWordMatcher(
 
     const markdown = await convertDocumentToMarkdown(file.path);
 
-    console.log("markdown file: ", markdown);
-
     const { jobDescription } = req.body;
 
     const filePath = path.join(process.cwd(), "prompt.txt");
@@ -148,8 +149,7 @@ export async function jdKeyWordMatcher(
       jobDescription,
     );
 
-    console.log("keyword response", result);
-
+    console.log(`[MATCH] User ${userId} triggered resume-JD matching analysis`);
     res.status(200).json({ result });
   } finally {
     await fs.unlink(file.path).catch(() => undefined);

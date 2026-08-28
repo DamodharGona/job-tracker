@@ -8,9 +8,6 @@ export function authMiddleWare(
   response: Response,
   next: NextFunction,
 ) {
-  console.log("cookies:", request.cookies);
-  console.log("token:", request.cookies?.token);
-
   const token = request.cookies?.token;
 
   if (!token) {

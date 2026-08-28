@@ -9,15 +9,11 @@ export const validateRequest = (schema: ZodSchema) => {
     next: NextFunction,
   ): Promise<void> => {
     try {
-      console.log(req.body);
-      console.log(req.query);
-      console.log(req.params);
       const parsed = await schema.safeParseAsync({
         body: req.body,
         query: req.query,
         params: req.params,
       });
-      console.log(parsed);
 
       if (!parsed.success) {
         const errorMessages = parsed.error.issues

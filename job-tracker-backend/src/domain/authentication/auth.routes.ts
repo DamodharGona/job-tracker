@@ -28,6 +28,7 @@ const updateGeminiApiKey = async (
   const userId = payload.userId;
   const { geminiApiKey } = req.body;
   const result = await updateGeminiApiKeyService(userId, geminiApiKey);
+  console.log(`[AUTH] Gemini API key updated for user: ${userId}`);
   res.status(200).json(result);
 };
 
@@ -53,6 +54,7 @@ const registerUser = async (
     sameSite: isProduction ? "none" : "lax",
     maxAge: 24 * 60 * 60 * 1000,
   });
+  console.log(`[AUTH] User registered successfully: ${result.user.email} (ID: ${result.user.id})`);
   res.status(201).send({
     message: result.message,
     user: result.user,
@@ -72,6 +74,7 @@ const loginUser = async (
     maxAge: 24 * 60 * 60 * 1000,
   });
 
+  console.log(`[AUTH] User login successful: ${result.user.email} (ID: ${result.user.id})`);
   res.status(200).json({
     message: result.message,
     user: result.user,
@@ -86,6 +89,7 @@ const logoutUser = async (req: Request, res: Response): Promise<void> => {
     path: "/",
   });
 
+  console.log(`[AUTH] User logout request processed`);
   res.status(200).json({
     message: "logged out successfully",
   });

@@ -15,12 +15,13 @@ if (!PORT) {
 async function bootstrap() {
   try {
     await prisma.$connect();
+    console.log("[SYSTEM] Database connected successfully");
 
     app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
+      console.log(`[SYSTEM] Server running on port ${PORT}`);
     });
   } catch (error) {
-    console.error("Failed to start server", error);
+    console.error("[SYSTEM] Failed to start server:", error);
     process.exit(1);
   }
 }
