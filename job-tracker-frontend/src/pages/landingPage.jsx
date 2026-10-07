@@ -100,7 +100,16 @@ function LandingPage() {
 
       {/* Mini Footer */}
       <footer className="w-full text-center py-6 border-t border-neutral-100 dark:border-zinc-900 text-[10px] sm:text-xs text-neutral-400 dark:text-zinc-500">
-        &copy; {new Date().getFullYear()} JobTracker. All rights reserved.
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
+          <span>&copy; {new Date().getFullYear()} JobTracker. All rights reserved.</span>
+          <span className="hidden sm:inline">&bull;</span>
+          <Link
+            to="/privacy-policy"
+            className="hover:text-neutral-700 dark:hover:text-zinc-300 underline underline-offset-4 transition-colors"
+          >
+            Privacy Policy
+          </Link>
+        </div>
       </footer>
     </div>
   );

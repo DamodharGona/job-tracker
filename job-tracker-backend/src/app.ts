@@ -40,6 +40,13 @@ app.get("/health", (_req, res) => {
   res.json({ message: "Server is running" });
 });
 
+app.get(["/privacy", "/privacy-policy"], (_req, res) => {
+  const targetUrl = process.env.FRONTEND_URL
+    ? `${process.env.FRONTEND_URL}/privacy-policy`
+    : "https://job-tracker-ten-mu-33.vercel.app/privacy-policy";
+  res.redirect(301, targetUrl);
+});
+
 const swaggerOptions = {
   definition: {
     openapi: "3.0.0",
