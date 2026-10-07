@@ -5,6 +5,7 @@ import {
   FiSun,
   FiTag,
   FiSettings,
+  FiShield,
 } from "react-icons/fi";
 import { MdOutlineClose } from "react-icons/md";
 import { Link } from "react-router-dom";
@@ -108,6 +109,13 @@ function SideBarModal({
                 <FiSettings />
                 Settings
               </span>
+
+              <Link to="/privacy-policy" onClick={handleClose}>
+                <span className="flex gap-x-2 items-center text-sm uppercase tracking-wider cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 rounded-md hover:font-semibold px-2 py-1 md:px-3 md:py-1.5 transition-colors">
+                  <FiShield />
+                  Privacy Policy
+                </span>
+              </Link>
 
               <span
                 onClick={onLogoutClicked}

@@ -10,6 +10,7 @@ import LandingPage from "./pages/landingPage";
 import { Dashboard } from "./pages/dashboardPage";
 import JobApplication from "./pages/jobApplicationPage";
 import { ResumeMatchPage } from "./pages/resumeMatchPage";
+import PrivacyPolicyPage from "./pages/privacyPolicyPage";
 import { verifyAuth } from "./repository/authApis";
 
 function FullScreenLoader({ loadingTooLong }) {
@@ -119,6 +120,12 @@ function App() {
           )}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signUp" element={<SignUpPage />} />
+          <Route path="/signup" element={<Navigate to="/signUp" replace />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route
+            path="/privacy"
+            element={<Navigate to="/privacy-policy" replace />}
+          />
           <Route
             path="*"
             element={<Navigate to={isAuthenticated ? "/home" : "/"} replace />}

@@ -4,7 +4,7 @@ import { useContext, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight } from "react-icons/fi";
 import { MdPerson } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import { toast } from "react-toastify";
 
@@ -12,6 +12,13 @@ function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const { setUser, setIsAuthenticated } = useContext(AuthContext);
   const { setHasApiKey } = useContext(ApiKeyContext);
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm();
 
   const [loadingTooLong, setLoadingTooLong] = useState(false);
 
@@ -27,12 +34,6 @@ function SignUpPage() {
       setLoadingTooLong(false);
     };
   }, [isSubmitting]);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm();
 
   const onSubmit = async (data) => {
     try {
@@ -58,8 +59,6 @@ function SignUpPage() {
       toast.error("Registration failed. Please try again.");
     }
   };
-
-  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-neutral-50 dark:bg-zinc-950 px-4 py-12 sm:px-6 lg:px-8 font-sans transition-colors duration-200">
@@ -211,7 +210,16 @@ function SignUpPage() {
                 className="font-semibold text-neutral-900 dark:text-zinc-200 underline hover:text-neutral-700 dark:hover:text-zinc-100 transition-colors"
               >
                 Terms of Service
-              </a>
+              </a>{" "}
+              and{" "}
+              <Link
+                to="/privacy-policy"
+                target="_blank"
+                rel="noreferrer"
+                className="font-semibold text-neutral-900 dark:text-zinc-200 underline hover:text-neutral-700 dark:hover:text-zinc-100 transition-colors"
+              >
+                Privacy Policy
+              </Link>
             </label>
           </div>
           {errors["agree-terms"]?.message && (
