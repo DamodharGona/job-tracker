@@ -14,6 +14,7 @@ app.use(cookieParser());
 const allowedOrigins = [
   "http://localhost:5173",
   "https://job-tracker-ten-mu-33.vercel.app",
+  "chrome-extension://cllbcfknkefecncfadnceaibhjokikdj",
   process.env.FRONTEND_URL,
 ].filter(Boolean) as string[];
 
